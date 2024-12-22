@@ -4,11 +4,12 @@
 
 ## 1. Setting Up Your QMK Environment
 
-Please see https://docs.qmk.fm/#/newbs_getting_started and set up 1 to 3.
+Please see <https://docs.qmk.fm/#/newbs_getting_started> and set up 1 to 3.
 
 ## 2. Getting source files
 
 Please get source files of `qmk/qmk_firmware` and `vial-kb/vial-qmk`
+
 ```sh
 make git-submodule
 ```
@@ -22,19 +23,30 @@ make qmk-clean
 kb=crkbd make qmk-init
 kb=crkbd kr=rev4_1/standard km=via make qmk-compile
 ```
+
 A built data will be stored on `keyboards/crkbd/qmk/qmk_firmware/.build`\
 Please change `kb`, `kr` and `km` when build other.
 
 ### for Vial
+
 ```sh
 make vial-qmk-clean
 kb=crkbd make vial-qmk-init
 kb=crkbd kr=rev4_1/standard km=vial make vial-qmk-compile
 ```
-A built data will be stored on `keyboards/crkbd/vial-kb/vial-qmk/.build`\
-Please change `kb`, `kr` and `km` when build other.
+
+Note: Please change `kb`, `kr` and `km` when building other kbs/models.
+
+Also, you can simply issue instead
+
+```sh
+make vial-qmk-compile-corne41
+```
+
+A built firmware can be found at the root dir of the project.
 
 ### All cleaning and building
+
 ```sh
 make update-all
 ```
