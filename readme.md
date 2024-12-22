@@ -1,4 +1,13 @@
-# KBD firmware
+# KBD firmware for Corne choc v4.1 from [keebart.com](https://www.keebart.com/products/corne)
+
+## Main highlights
+
+- 16 Layers.
+- 32 Macros.
+- Sync Layer/Led/Mod states.
+- Layer indicators (using the four extra keys).
+- Keyboard name shows as "keebart corne v4.1" instead of "foostan corne v4".
+- Also, with the foostan/keebart firmware, when my system goes to sleep, hitting anything on the keyboard aftewards will do nothing; but with this firmware it seems to work as expcted; if I hit any key the keyboard wakes up and the system too.
 
 ## How to build
 
