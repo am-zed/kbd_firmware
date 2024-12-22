@@ -1,8 +1,8 @@
-.PHONY: git-submodule, qmk-clean, qmk-init, qmk-compile, qmk-flash, qmk-init-all, qmk-compile-all, vial-qmk-clean, vial-qmk-init, vial-qmk-compile, vial-qmk-flash, vial-qmk-init-all, vial-qmk-compile-all, update-all
+.PHONY: git-submodule, qmk-clean, qmk-init, qmk-compile, qmk-flash, qmk-init-all, qmk-compile-all, vial-qmk-clean, vial-qmk-init, vial-qmk-compile, vial-qmk-flash, vial-qmk-init-all, vial-qmk-compile-all, update-all, vial-qmk-compile-corne41
 
 KB := crkbd
-KR := rev1
-KM := default
+KR := rev4_1
+KM := vial
 
 git-submodule:
 	git submodule update --remote
@@ -98,3 +98,9 @@ update-all:
 	make vial-qmk-clean
 	make vial-qmk-init-all
 	make vial-qmk-compile-all
+
+vial-qmk-compile-corne41:
+	make qmk-clean
+	make vial-qmk-clean
+	kb=crkbd make vial-qmk-init
+	kb=crkbd kr=rev4_1/standard km=vial make vial-qmk-compile
