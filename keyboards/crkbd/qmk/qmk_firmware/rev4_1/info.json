@@ -1,6 +1,6 @@
 {
     "maintainer": "foostan",
-    "manufacturer": "foostan",
+    "manufacturer": "keebart",
     "url": "https://github.com/foostan/crkbd",
     "usb": {
         "vid": "0x4653",
@@ -64,7 +64,7 @@
             }
         },
         "transport": {
-            "protocol": "serial_usart",
+            "protocol": "serial",
             "sync": {
                 "matrix_state": true
             },
