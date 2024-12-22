@@ -104,3 +104,5 @@ vial-qmk-compile-corne41:
 	make vial-qmk-clean
 	kb=crkbd make vial-qmk-init
 	kb=crkbd kr=rev4_1/standard km=vial make vial-qmk-compile
+	$(eval FILE := $(shell echo "${KB}_${KR}_standard_${KM}" | sed 's/\//_/'))
+	cp keyboards/crkbd/vial-kb/vial-qmk/.build/${FILE}.uf2 ${FILE}.uf2 |true
