@@ -126,19 +126,21 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     case 2:
       rgb_matrix_set_color(22, RGB_MAGENTA);
       break;
-    case 3:
+    case 3: {
       const uint8_t LED_0011[] = { 22, 45 };
       for (uint8_t i = 0; i < ARRAY_SIZE(LED_0011); i++)
           rgb_matrix_set_color(LED_0011[i], RGB_GREEN);
       break;
+    }
     case 4:
       rgb_matrix_set_color(44, RGB_MAGENTA);
       break;
-    case 5:
+    case 5: {
       const uint8_t LED_0101[] = { 44, 45 };
       for (uint8_t i = 0; i < ARRAY_SIZE(LED_0101); i++)
           rgb_matrix_set_color(LED_0101[i], RGB_GREEN);
       break;
+    }
     default:
       // don't change default behavior
       break;
