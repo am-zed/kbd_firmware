@@ -9,6 +9,10 @@
 - Keyboard name shows as "keebart corne v4.1" instead of "foostan corne v4".
 - Also, with the foostan/keebart firmware, when my system goes to sleep, hitting anything on the keyboard aftewards will do nothing; but with this firmware it seems to work as expcted; if I hit any key the keyboard wakes up and the system too.
 
+## Firmware
+
+Pre-compiled firmware available to download [crkbd_rev4_1_standard_vial.uf2](https://github.com/am-zed/kbd_firmware/blob/main/crkbd_rev4_1_standard_vial.uf2)
+
 ## How to build
 
 ## 1. Setting Up Your QMK Environment
