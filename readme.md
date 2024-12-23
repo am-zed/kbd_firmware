@@ -5,13 +5,17 @@
 - 16 Layers.
 - 32 Macros.
 - Sync Layer/Led/Mod states.
-- Layer indicators (using the four extra keys).
+- Layer indicators (using the four extra keys), can be disabled in [rules.mk](./keyboards/crkbd/vial-kb/vial-qmk/keymaps/vial/rules.mk)
+```sh
+CSTM_SHIFT_BACKSPACE_DELETE = no
+```
+- Shift+Backspace = Delete.
 - Keyboard name shows as "keebart corne v4.1" instead of "foostan corne v4".
 - Also, with the foostan/keebart firmware, when my system goes to sleep, hitting anything on the keyboard aftewards will do nothing; but with this firmware it seems to work as expcted; if I hit any key the keyboard wakes up and the system too.
 
 ## Firmware
 
-Pre-compiled firmware available to download [crkbd_rev4_1_standard_vial.uf2](https://github.com/am-zed/kbd_firmware/blob/main/crkbd_rev4_1_standard_vial.uf2)
+Pre-compiled firmware available to download [crkbd_rev4_1_standard_vial.uf2](./crkbd_rev4_1_standard_vial.uf2)
 
 ## How to build
 
