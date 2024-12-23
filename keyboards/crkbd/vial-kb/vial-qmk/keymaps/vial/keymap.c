@@ -121,7 +121,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
   // const uint8_t LED_LIST[] = { 21, 44, 22, 45 };
   switch(get_highest_layer(layer_state)){  // special handling per layer
     case 1:
-      rgb_matrix_set_color(45, RGB_MAGENTA);
+      rgb_matrix_set_color(45, RGB_CYAN);
       break;
     case 2:
       rgb_matrix_set_color(22, RGB_MAGENTA);
@@ -129,16 +129,16 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     case 3: {
       const uint8_t LED_0011[] = { 22, 45 };
       for (uint8_t i = 0; i < ARRAY_SIZE(LED_0011); i++)
-          rgb_matrix_set_color(LED_0011[i], RGB_GREEN);
+          rgb_matrix_set_color(LED_0011[i], RGB_SPRINGGREEN);
       break;
     }
     case 4:
-      rgb_matrix_set_color(44, RGB_MAGENTA);
+      rgb_matrix_set_color(44, RGB_AZURE);
       break;
     case 5: {
       const uint8_t LED_0101[] = { 44, 45 };
       for (uint8_t i = 0; i < ARRAY_SIZE(LED_0101); i++)
-          rgb_matrix_set_color(LED_0101[i], RGB_GREEN);
+          rgb_matrix_set_color(LED_0101[i], RGB_RED);
       break;
     }
     default:
