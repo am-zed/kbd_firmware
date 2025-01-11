@@ -5,9 +5,9 @@
 - 16 Layers.
 - 32 Macros.
 - Sync Layer/Led/Mod states.
-- Layer indicators (using the four extra keys), can be disabled in [rules.mk](./keyboards/crkbd/vial-kb/vial-qmk/keymaps/vial/rules.mk)
-```sh
-CSTM_SHIFT_BACKSPACE_DELETE = no
+- Layer indicators (using the four extra keys), can be disabled in [config.h](./keyboards/crkbd/vial-kb/vial-qmk/keymaps/vial/config.h)
+```c
+//#define CSTM_SHIFT_BACKSPACE_DELETE
 ```
 - Shift+Backspace = Delete.
 - Keyboard name shows as "keebart corne v4.1" instead of "foostan corne v4".
