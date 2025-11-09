@@ -626,6 +626,6 @@
 // Optional: Disable shared RGB keycodes to avoid conflicts
 //#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
 
-//OK//#define PALETTEFX_ENABLE_ALL_EFFECTS  // cycle with RM_NEXT/RM_PREV
-//OK//#define PALETTEFX_ENABLE_ALL_PALETTES // cycle with RM_HUEU/RM_HUED
+#define PALETTEFX_ENABLE_ALL_EFFECTS  // cycle with RM_NEXT/RM_PREV
+#define PALETTEFX_ENABLE_ALL_PALETTES // cycle with RM_HUEU/RM_HUED
 
