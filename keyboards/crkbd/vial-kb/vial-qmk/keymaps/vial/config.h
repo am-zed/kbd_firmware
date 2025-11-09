@@ -239,7 +239,7 @@
 // Tap-toggle count - Number of taps to toggle swap hands
 // Default: TAPPING_TOGGLE (usually 5)
 // Tapping SH_TT this many times will toggle swap hands on/off
-// #define SWAP_HANDS_TAPPING_TOGGLE 5  // Uncomment to customize
+#define SWAP_HANDS_TAPPING_TOGGLE 5  // Uncomment to customize
 
 // ==================== UNICODE CONFIGURATION ====================
 

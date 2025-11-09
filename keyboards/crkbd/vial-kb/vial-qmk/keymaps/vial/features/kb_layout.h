@@ -4,6 +4,12 @@
 #include "quantum.h"
 
 
+// Layout: LC*/RC* control keys, LE*/RE* extra keys, LT*/RT* thumb keys:
+// LC18, | L17,  L12,  L11,  L04,  L03,  LE21, | RE44, R26,  R27,  R34,  R35,  R47,  | RC41,
+// LC19, | L16,  L13,  L10,  L05,  L02,  LE22, | RE45, R25,  R28,  R33,  R36,  R39,  | RC42,
+// LC20, | L15,  L14,  L09,  L06,  L01,  NULL, | NULL, R24,  R29,  R32,  R37,  R38,  | RC43,
+// NULL, | NULL, NULL, LT08, LT07, LT00, NULL, | NULL, RT23, RT30, RT31, NULL, NULL, | NULL
+
 enum layers {
     _BASE,
     _LOWER,
@@ -61,3 +67,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   )
 };
+
+#ifdef SWAP_HANDS_ENABLE
+
+// Swap hands configuration for Corne v4.1 with 8 rows × 7 cols matrix
+// Split keyboards: left side = rows 0-3, right side = rows 4-7
+// Only L01-L17 swap with R24-R47 (mirrored)
+// All other keys (LC*, RC*, LE*, RE*, LT*, RT*) map to themselves
+const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    // Row 0 (Left): LC18, L17, L12, L11, L04, L03, LE21
+    {{0, 0}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}, {6, 0}},
+
+    // Row 1 (Left): LC19, L16, L13, L10, L05, L02, LE22
+    {{0, 1}, {1, 5}, {2, 5}, {3, 5}, {4, 5}, {5, 5}, {6, 1}},
+
+    // Row 2 (Left): LC20, L15, L14, L09, L06, L01, NULL
+    {{0, 2}, {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}, {6, 2}},
+
+    // Row 3 (Left): NULL, NULL, NULL, LT08, LT07, LT00, NULL
+    {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3}},
+
+    // Row 4 (Right): RE44, R26, R27, R34, R35, R47, RC41
+    {{0, 4}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 4}},
+
+    // Row 5 (Right): RE45, R25, R28, R33, R36, R39, RC42
+    {{0, 5}, {1, 1}, {2, 1}, {3, 1}, {4, 1}, {5, 1}, {6, 5}},
+
+    // Row 6 (Right): NULL, R24, R29, R32, R37, R38, RC43
+    {{0, 6}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 6}},
+
+    // Row 7 (Right): NULL, RT23, RT30, RT31, NULL, NULL, NULL
+    {{0, 7}, {1, 7}, {2, 7}, {3, 7}, {4, 7}, {5, 7}, {6, 7}}
+};
+
+#endif
+
