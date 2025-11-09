@@ -2,6 +2,7 @@
 
 
 #include "features/rgb_matrix.h"
+#include "features/shift_backspace.h"
 #include "features/leader_key.h"
 #include "features/custom_keycodes.h"
 
@@ -14,7 +15,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 leader_start();  // Manually start leader sequence
             }
             return false;  // Skip further processing
+
+        case KC_BSPC:
+            return handle_smart_backspace(record);
     }
+
     return true;  // Continue processing for other keys
 }
 
