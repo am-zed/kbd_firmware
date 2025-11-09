@@ -285,7 +285,8 @@
 // Default: 300ms (fast typing required)
 // Recommended: 500-1000ms for comfortable use
 // Set to 0 with LEADER_NO_TIMEOUT for unlimited time
-#define LEADER_TIMEOUT 1000
+//#define LEADER_TIMEOUT 1000
+#define LEADER_TIMEOUT 800
 
 // Per-key timing - Reset timeout after each key in sequence
 // Without this: Total time for entire sequence = LEADER_TIMEOUT

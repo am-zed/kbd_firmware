@@ -34,5 +34,12 @@
             [{"r": -30, "rx": 11.1,            "y": -5.05, "x":  0.4, "h": 1.5}, "7,5"],
             [{"r": -15, "rx": 12,   "ry": 9.1, "y": -4.85, "x": -0.5}, "7,4"]
         ]
-    }
+    },
+    "customKeycodes": [
+        {
+            "name": "Leader",
+            "title": "Leader Key",
+            "shortName": "LEADER"
+        }
+    ]
 }
