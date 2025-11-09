@@ -110,7 +110,7 @@ RAW_ENABLE         = no
 
 # Swap Hands - Mirror keyboard for one-handed typing
 # Allows swapping left/right halves (useful for accessibility/gaming)
-#OK#SWAP_HANDS_ENABLE  = yes
+SWAP_HANDS_ENABLE  = yes
 
 # Auto Shift - Automatically capitalize letters when held longer
 # Hold a key briefly = shifted (capital) version

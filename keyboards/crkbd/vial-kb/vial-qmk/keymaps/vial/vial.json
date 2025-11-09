@@ -40,6 +40,36 @@
             "name": "Leader",
             "title": "Leader Key",
             "shortName": "LEADER"
+        },
+        {
+            "name": "Swap Hands Toggle",
+            "title": "Toggle swap hands on/off",
+            "shortName": "SH_TOGG"
+        },
+        {
+            "name": "Swap Hands Momentary",
+            "title": "Swap hands while held",
+            "shortName": "SH_MON"
+        },
+        {
+            "name": "Swap Hands On",
+            "title": "Turn swap hands on",
+            "shortName": "SH_ON"
+        },
+        {
+            "name": "Swap Hands Off",
+            "title": "Turn swap hands off",
+            "shortName": "SH_OFF"
+        },
+        {
+            "name": "Swap Hands Tap-Toggle",
+            "title": "Tap 5x to toggle, hold for momentary",
+            "shortName": "SH_TT"
+        },
+        {
+            "name": "Swap Hands One-Shot",
+            "title": "Swap for next key press only",
+            "shortName": "SH_OS"
         }
     ]
 }
