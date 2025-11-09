@@ -3,3 +3,6 @@
 
 # idea
 .idea/*
+
+# ignore .uf2
+*.uf2

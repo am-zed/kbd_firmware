@@ -1,0 +1,3 @@
+
+# treat as binary -text -diff -merge
+*.uf2 binary
