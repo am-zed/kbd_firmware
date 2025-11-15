@@ -129,18 +129,16 @@
 // Row 3: 3 left thumb + 3 right thumb = 6 total
 //
 
-/* OK
 #define CHORDAL_HOLD_LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06,  K07, K08, K09, K010, K011, K012, K013, \
     K10, K11, K12, K13, K14, K15, K16,  K17, K18, K19, K110, K111, K112, K113, \
     K20, K21, K22, K23, K24, K25,            K26, K27, K28, K29, K210, K211, \
-                        K30, K31, K32,  K33, K34, K35 \
+                   K30, K31, K32,            K33, K34, K35 \
 ) \
     'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R', \
     'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R', \
     'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R', \
-                        'L', 'L', 'L',  'R', 'R', 'R'
-*/
+                   'L', 'L', 'L',            'R', 'R', 'R'
 
 // ==================== AUTO SHIFT CONFIGURATION ====================
 
@@ -333,12 +331,12 @@
 // Idle timeout - Reset state after 5 seconds of inactivity
 // Default: 5000ms (5 seconds)
 // Set to 0 to never timeout
-//OK//#define SENTENCE_CASE_TIMEOUT 5000
+#define SENTENCE_CASE_TIMEOUT 5000
 
 // Buffer size - Maximum pattern length for abbreviation detection
 // Default: 8 keys
 // Increase if you need longer abbreviation patterns (e.g., "e.g.")
-//OK//#define SENTENCE_CASE_BUFFER_SIZE 8
+#define SENTENCE_CASE_BUFFER_SIZE 8
 
 // ==================== DEFERRED EXECUTION CONFIGURATION ====================
 

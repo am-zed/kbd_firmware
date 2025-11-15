@@ -4,6 +4,9 @@
     "productId": "0x0004",
     "matrix": {"rows": 8, "cols": 7},
     "lighting": "vialrgb",
+    "features": {
+        "rgb_matrix": true
+    },
     "layouts": {
         "labels": [
             ["Left EX1",  "Key", "Encoder", "None"],
@@ -70,6 +73,19 @@
             "name": "Swap Hands One-Shot",
             "title": "Swap for next key press only",
             "shortName": "SH_OS"
+        },
+        {
+            "name": "Sentence Case ON",
+            "title": "Turn Sentence Case ON",
+            "shortName": "SENTENCE_CASE_ON"},
+        {
+            "name": "Sentence Case OFF",
+            "title": "Turn Sentence Case OFF",
+            "shortName": "SENTENCE_CASE_OFF"},
+        {
+            "name": "Sentence Case Toggle",
+            "title": "Toggle Sentence Case",
+            "shortName": "SENTENCE_CASE_TOGGLE"
         }
     ]
 }
