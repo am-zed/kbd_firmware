@@ -2,6 +2,7 @@
   "version": 1,
   "notes": "Corne Choc v4.1 - 46 keys (23 per side) QMK Modules",
   "modules": [
-    "getreuer/palettefx"
+    "getreuer/palettefx",
+    "getreuer/sentence_case"
   ]
 }
