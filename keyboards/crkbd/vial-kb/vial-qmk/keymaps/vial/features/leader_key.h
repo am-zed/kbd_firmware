@@ -295,13 +295,6 @@ void leader_end_user(void) {
         leader_sequence_matched = true;
     }
 
-    // Leader + d + w = Delete word (Ctrl+Backspace)
-    // TODO: must go to end of word first
-    //else if (leader_sequence_two_keys(KC_D, KC_W)) {
-    //    SEND_STRING(SS_LCTL(SS_TAP(X_BSPC)));  // Ctrl+Backspace
-    //    leader_sequence_matched = true;
-    //}
-
     // Leader + d + w = Delete current word (robust version)
     else if (leader_sequence_two_keys(KC_D, KC_W)) {
         #ifdef OS_DETECTION_ENABLE
@@ -317,39 +310,20 @@ void leader_end_user(void) {
                 break;
             default:
                 // Windows/Linux: Select word (Ctrl+Shift+Left/Right) then delete
-                SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_LEFT)))); // Select to word start
+                SEND_STRING(SS_LCTL(SS_TAP(X_LEFT))); // go to word start
                 wait_ms(30);
-                SEND_STRING(SS_LSFT(SS_LCTL(SS_TAP(X_RGHT)))); // Extend to word end
+                SEND_STRING(SS_LSFT(SS_LSFT(SS_LCTL(SS_TAP(X_RGHT))))); // Select to word end
                 wait_ms(50);
                 tap_code(KC_BSPC); // Delete selection
                 break;
         }
         #else
         // Default: Select word then delete
-        SEND_STRING(SS_LCTL(SS_LSFT(SS_TAP(X_LEFT)))); // Select to word start
+        SEND_STRING(SS_LCTL(SS_TAP(X_LEFT))); // go to word start
         wait_ms(30);
-        SEND_STRING(SS_LSFT(SS_LCTL(SS_TAP(X_RGHT)))); // Extend to word end
+        SEND_STRING(SS_LSFT(SS_LSFT(SS_LCTL(SS_TAP(X_RGHT))))); // Select to word end
         wait_ms(50);
         tap_code(KC_BSPC); // Delete selection
-        #endif
-        leader_sequence_matched = true;
-    }
-
-    // Leader + c + c = Comment line (Ctrl+/ or Cmd+/)
-    // TODO: must go to beginning of line first
-    else if (leader_sequence_two_keys(KC_C, KC_C)) {
-        #ifdef OS_DETECTION_ENABLE
-        switch (detected_host_os()) {
-            case OS_MACOS:
-            case OS_IOS:
-                SEND_STRING(SS_LGUI(SS_TAP(X_SLSH))); // Cmd+/ on macOS
-                break;
-            default:
-                SEND_STRING(SS_LCTL(SS_TAP(X_SLSH))); // Ctrl+/ on Windows/Linux
-                break;
-        }
-        #else
-        SEND_STRING(SS_LCTL(SS_TAP(X_SLSH)));  // Default to Ctrl+/
         #endif
         leader_sequence_matched = true;
     }
@@ -444,22 +418,64 @@ void leader_end_user(void) {
     // ==================== SHIFT MODIFIER SEQUENCES ====================
 
     // Leader + G = Go to bottom of file (Shift+G in Vim)
-    else if (leader_sequence_one_key(S(KC_G))) {
-        #ifdef OS_DETECTION_ENABLE
-        switch (detected_host_os()) {
-            case OS_MACOS:
-            case OS_IOS:
-                SEND_STRING(SS_LGUI(SS_TAP(X_DOWN))); // Cmd+Down on macOS
-                break;
-            default:
-                SEND_STRING(SS_LCTL(SS_TAP(X_END)));  // Ctrl+End on Windows/Linux
-                break;
-        }
-        #else
-        SEND_STRING(SS_LCTL(SS_TAP(X_END)));   // Default to Ctrl+End
-        #endif
-        leader_sequence_matched = true;
-    }
+    //else if (leader_sequence_one_key(S(KC_G))) {
+    //    #ifdef OS_DETECTION_ENABLE
+    //    switch (detected_host_os()) {
+    //        case OS_MACOS:
+    //        case OS_IOS:
+    //            SEND_STRING(SS_LGUI(SS_TAP(X_DOWN))); // Cmd+Down on macOS
+    //            break;
+    //        default:
+    //            SEND_STRING(SS_LCTL(SS_TAP(X_END)));  // Ctrl+End on Windows/Linux
+    //            break;
+    //    }
+    //    #else
+    //    SEND_STRING(SS_LCTL(SS_TAP(X_END)));   // Default to Ctrl+End
+    //    #endif
+    //    leader_sequence_matched = true;
+    //}
+
+    //if (leader_sequence_one_key(KC_G)) {
+    //    // Check if Shift is held during this keypress
+    //    if (get_mods() & MOD_MASK_SHIFT) {
+    //        // Send Ctrl+End for Leader + Shift+G
+    //        #ifdef OS_DETECTION_ENABLE
+    //        switch (detected_host_os()) {
+    //            case OS_MACOS:
+    //            case OS_IOS:
+    //                SEND_STRING(SS_LGUI(SS_TAP(X_DOWN))); // Cmd+Down on macOS
+    //                break;
+    //            default:
+    //                SEND_STRING(SS_LCTL(SS_TAP(X_END)));  // Ctrl+End on Windows/Linux
+    //                break;
+    //        }
+    //        #else
+    //        SEND_STRING(SS_LCTL(SS_TAP(X_END))); // Default Ctrl+End
+    //        #endif
+    //    }
+
+    //    leader_sequence_matched = true;
+    //}
+
+    //if (leader_sequence_one_key(KC_G)) {
+    //    uint8_t mods = get_mods() | get_weak_mods();
+    //    if (mods & MOD_MASK_SHIFT) {
+    //        #ifdef OS_DETECTION_ENABLE
+    //        switch (detected_host_os()) {
+    //            case OS_MACOS:
+    //            case OS_IOS:
+    //                SEND_STRING(SS_LGUI(SS_TAP(X_DOWN)));
+    //                break;
+    //            default:
+    //                SEND_STRING(SS_LCTL(SS_TAP(X_END)));
+    //                break;
+    //        }
+    //        #else
+    //        SEND_STRING(SS_LCTL(SS_TAP(X_END)));
+    //        #endif
+    //        leader_sequence_matched = true;
+    //    }
+    //}
 
     // Leader + N = Find previous (Shift+N in Vim)
     else if (leader_sequence_one_key(S(KC_N))) {
