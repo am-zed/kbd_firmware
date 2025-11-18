@@ -4,26 +4,26 @@ VIALRGB_ENABLE     = yes
 ENCODER_MAP_ENABLE = no
 
 # disable unused features
-AUDIO_ENABLE           = no
-BACKLIGHT_ENABLE       = no
-BLUETOOTH_ENABLE       = no
-DIP_SWITCH_ENABLE      = no
-ENCODER_ENABLE         = no
-HD44780_ENABLE         = no
-#IOS_DEVICE_ENABLE     = no
-LCD_BACKLIGHT_ENABLE   = no
-LCD_ENABLE             = no
-POINTING_DEVICE_ENABLE = no
-PS2_MOUSE_ENABLE       = no
-SLEEP_LED_ENABLE       = no
-STENO_ENABLE           = no
-DIGITIZER_ENABLE       = no
-WPM_ENABLE             = no
+#AUDIO_ENABLE           = no
+#BACKLIGHT_ENABLE       = no
+#BLUETOOTH_ENABLE       = no
+#DIP_SWITCH_ENABLE      = no
+#ENCODER_ENABLE         = no
+#HD44780_ENABLE         = no
+##IOS_DEVICE_ENABLE     = no
+#LCD_BACKLIGHT_ENABLE   = no
+#LCD_ENABLE             = no
+#POINTING_DEVICE_ENABLE = no
+#PS2_MOUSE_ENABLE       = no
+#SLEEP_LED_ENABLE       = no
+#STENO_ENABLE           = no
+#DIGITIZER_ENABLE       = no
+#WPM_ENABLE             = no
 DEBUG_ENABLE           = no
-GERMAN_ENABLE          = no
-KEYLOGGER_ENABLE       = no
-AUTOLOG_ENABLE         = no
-AUTOCORRECT_ENABLE     = no
+#GERMAN_ENABLE          = no
+#KEYLOGGER_ENABLE       = no
+#AUTOLOG_ENABLE         = no
+#AUTOCORRECT_ENABLE     = no
 
 # Enable debug console for debug output
 # Allows dprintf(), uprintf(), and debug macros to work
@@ -75,7 +75,7 @@ KEY_OVERRIDE_ENABLE = yes
 # Programmable Buttons - 32 custom keys with no OS meaning
 # Captured by custom software (Linux 5.14+: KEY_MACRO1-30)
 # Useful for automation, scripting, custom macros
-PROGRAMMABLE_BUTTON_ENABLE = yes
+PROGRAMMABLE_BUTTON_ENABLE = no
 
 # OS Detection - Auto-detect host OS (Windows/Linux/macOS/iOS)
 # Detects OS based on USB setup packets
