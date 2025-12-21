@@ -8,7 +8,7 @@
 // Physical Layout (46 keys total):
 //
 // LEFT:                                RIGHT:
-// L18 L17 L12 L11 L04 L03 [LE21]      [RE44] R26 R27 R34 R35 R47 R41
+// L18 L17 L12 L11 L04 L03 [LE21]      [RE44] R26 R27 R34 R35 R40 R41
 // L19 L16 L13 L10 L05 L02 [LE22]      [RE45] R25 R28 R33 R36 R39 R42
 // L20 L15 L14 L09 L06 L01                    R24 R29 R32 R37 R38 R43
 //               LM08 LM07 LM00        RM23 RM30 RM31
@@ -63,7 +63,7 @@
 #define R_TOP_1     27  // R27
 #define R_TOP_2     34  // R34
 #define R_TOP_3     35  // R35
-#define R_TOP_4     47  // R47
+#define R_TOP_4     40  // R40
 #define R_TOP_5     41  // R41 - Rightmost key (usually Backspace)
 
 // ----------------------------------------------------------------------------
@@ -130,6 +130,6 @@
 // PIN SUMMARY
 // ============================================================================
 // Left side:  L00-L20, LM00, LM07-08, LE21-22 (23 pins)
-// Right side: R24-R47, RM23, RM30-31, RE44-45 (23 pins)
+// Right side: R24-R43, RM23, RM30-31, RE44-45 (23 pins)
 // Total: 46 unique pins
 // ============================================================================
