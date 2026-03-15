@@ -30,7 +30,7 @@ vial-qmk-compile:
 	$(eval KR := ${kr})
 	$(eval KM := ${km})
 	$(eval FILE := $(shell echo "${kb}_${kr}_${km}" | sed 's/\//_/'))
-	cd src/vial-kb/vial-qmk; qmk compile -kb tmp/${KB}/${KR} -km ${KM}
+	cd src/vial-kb/vial-qmk; qmk compile -kb tmp/${KB}/${KR} -km ${KM} -j 6
 	cp -f src/vial-kb/vial-qmk/.build/tmp_${FILE}.uf2 keyboards/${KB}/vial-kb/vial-qmk/.build/${FILE}.uf2 | true
 
 vial-qmk-flash:
