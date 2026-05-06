@@ -186,10 +186,10 @@ void leader_end_user(void) {
     }
 
     // Leader + b = Enter bootloader (QMK Boot)
-    else if (leader_sequence_one_key(KC_B)) {
-        reset_keyboard();
-        leader_sequence_matched = true;
-    }
+    //else if (leader_sequence_one_key(KC_B)) {
+    //    reset_keyboard();
+    //    leader_sequence_matched = true;
+    //}
 
     // ==================== TWO-KEY SEQUENCES ====================
 
@@ -494,6 +494,28 @@ void leader_end_user(void) {
         #endif
         leader_sequence_matched = true;
     }
+
+    // draw boxes
+    else if (leader_sequence_one_key(KC_B)) {
+        send_box();
+        leader_sequence_matched = true;
+    } else if (leader_sequence_two_keys(KC_B, KC_B)) {
+        send_box_bold();
+        leader_sequence_matched = true;
+    } else if (leader_sequence_two_keys(KC_B, KC_D)) {
+        send_box_double();
+        leader_sequence_matched = true;
+    } else if (leader_sequence_two_keys(KC_B, KC_R)) {
+        send_box_round();
+        leader_sequence_matched = true;
+    }
+
+    // draw table
+    else if (leader_sequence_two_keys(KC_B, KC_T)) {
+        send_table();
+        leader_sequence_matched = true;
+    }
+
 
 
     // ==================== END NOTIFICATION ====================

@@ -2,6 +2,7 @@
 
 #include "features/custom_keycodes.h"
 #include "features/kb_layout.h"
+#include "features/draw_boxes.h"
 #include "features/leader_key.h"
 #include "features/rgb_matrix.h"
 #include "features/shift_backspace.h"
