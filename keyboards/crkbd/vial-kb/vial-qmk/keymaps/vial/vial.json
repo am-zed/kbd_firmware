@@ -74,7 +74,6 @@
             "title": "Swap for next key press only",
             "shortName": "SH_OS"
         },
-
         {
             "name": "Sentence Case ON",
             "title": "Turn Sentence Case ON",
@@ -90,248 +89,246 @@
             "title": "Toggle Sentence Case",
             "shortName": "SENTENCE_CASE_TOGGLE"
         },
-
         {
             "name": "Arabic Alef",
             "title": "Arabic letter ALEF (ا)",
-            "shortName": "AR_ALEF"
+            "shortName": "ا"
         },
         {
             "name": "Arabic Beh",
             "title": "Arabic letter BEH (ب)",
-            "shortName": "AR_BEH"
+            "shortName": "ب"
         },
         {
             "name": "Arabic Teh",
             "title": "Arabic letter TEH (ت)",
-            "shortName": "AR_TEH"
+            "shortName": "ت"
         },
         {
             "name": "Arabic Theh",
             "title": "Arabic letter THEH (ث)",
-            "shortName": "AR_THEH"
+            "shortName": "ث"
         },
         {
             "name": "Arabic Jeem",
             "title": "Arabic letter JEEM (ج)",
-            "shortName": "AR_JEEM"
+            "shortName": "ج"
         },
         {
             "name": "Arabic Hah",
             "title": "Arabic letter HAH (ح)",
-            "shortName": "AR_HAH"
+            "shortName": "ح"
         },
         {
             "name": "Arabic Khah",
             "title": "Arabic letter KHAH (خ)",
-            "shortName": "AR_KHAH"
+            "shortName": "خ"
         },
         {
             "name": "Arabic Dal",
             "title": "Arabic letter DAL (د)",
-            "shortName": "AR_DAL"
+            "shortName": "د"
         },
         {
             "name": "Arabic Thal",
             "title": "Arabic letter THAL (ذ)",
-            "shortName": "AR_THAL"
+            "shortName": "ذ"
         },
         {
             "name": "Arabic Reh",
             "title": "Arabic letter REH (ر)",
-            "shortName": "AR_REH"
+            "shortName": "ر"
         },
         {
             "name": "Arabic Zain",
             "title": "Arabic letter ZAIN (ز)",
-            "shortName": "AR_ZAIN"
+            "shortName": "ز"
         },
         {
             "name": "Arabic Seen",
             "title": "Arabic letter SEEN (س)",
-            "shortName": "AR_SEEN"
+            "shortName": "س"
         },
         {
             "name": "Arabic Sheen",
             "title": "Arabic letter SHEEN (ش)",
-            "shortName": "AR_SHEEN"
+            "shortName": "ش"
         },
         {
             "name": "Arabic Sad",
             "title": "Arabic letter SAD (ص)",
-            "shortName": "AR_SAD"
+            "shortName": "ص"
         },
         {
             "name": "Arabic Dad",
             "title": "Arabic letter DAD (ض)",
-            "shortName": "AR_DAD"
+            "shortName": "ض"
         },
         {
             "name": "Arabic Tah",
             "title": "Arabic letter TAH (ط)",
-            "shortName": "AR_TAH"
+            "shortName": "ط"
         },
         {
             "name": "Arabic Zah",
             "title": "Arabic letter ZAH (ظ)",
-            "shortName": "AR_ZAH"
+            "shortName": "ظ"
         },
         {
             "name": "Arabic Ain",
             "title": "Arabic letter AIN (ع)",
-            "shortName": "AR_AIN"
+            "shortName": "ع"
         },
         {
             "name": "Arabic Ghain",
             "title": "Arabic letter GHAIN (غ)",
-            "shortName": "AR_GHAIN"
+            "shortName": "غ"
         },
         {
             "name": "Arabic Feh",
             "title": "Arabic letter FEH (ف)",
-            "shortName": "AR_FEH"
+            "shortName": "ف"
         },
         {
             "name": "Arabic Qaf",
             "title": "Arabic letter QAF (ق)",
-            "shortName": "AR_QAF"
+            "shortName": "ق"
         },
         {
             "name": "Arabic Kaf",
             "title": "Arabic letter KAF (ك)",
-            "shortName": "AR_KAF"
+            "shortName": "ك"
         },
         {
             "name": "Arabic Lam",
             "title": "Arabic letter LAM (ل)",
-            "shortName": "AR_LAM"
+            "shortName": "ل"
         },
         {
             "name": "Arabic Meem",
             "title": "Arabic letter MEEM (م)",
-            "shortName": "AR_MEEM"
+            "shortName": "م"
         },
         {
             "name": "Arabic Noon",
             "title": "Arabic letter NOON (ن)",
-            "shortName": "AR_NOON"
+            "shortName": "ن"
         },
         {
             "name": "Arabic Heh",
             "title": "Arabic letter HEH (ه)",
-            "shortName": "AR_HEH"
+            "shortName": "ه"
         },
         {
             "name": "Arabic Waw",
             "title": "Arabic letter WAW (و)",
-            "shortName": "AR_WAW"
+            "shortName": "و"
         },
         {
             "name": "Arabic Teh Marbuta",
             "title": "Arabic letter TEH MARBUTA (ة)",
-            "shortName": "AR_TEH_MARBUTA"
+            "shortName": "ة"
         },
         {
             "name": "Arabic Hamza",
             "title": "Arabic letter HAMZA (ء)",
-            "shortName": "AR_HAMZA"
+            "shortName": "ء"
         },
         {
             "name": "Arabic Yeh",
             "title": "Arabic letter YEH (ي)",
-            "shortName": "AR_YEH"
+            "shortName": "ي"
         },
         {
             "name": "Arabic Yeh with Hamza",
             "title": "Arabic letter YEH WITH HAMZA ABOVE (ئ)",
-            "shortName": "AR_YEH_HAMZA"
+            "shortName": "ئ"
         },
         {
             "name": "Arabic Alef Maksura",
             "title": "Arabic letter ALEF MAKSURA (ى)",
-            "shortName": "AR_ALEF_MAKSURA"
+            "shortName": "ى"
         },
         {
             "name": "Arabic Alef Madda",
             "title": "Arabic letter ALEF WITH MADDA ABOVE (آ)",
-            "shortName": "AR_ALEF_MADDA"
+            "shortName": "آ"
         },
         {
             "name": "Arabic Alef with Hamza Above",
             "title": "Arabic letter ALEF WITH HAMZA ABOVE (أ)",
-            "shortName": "AR_ALEF_HAMZA_ABV"
+            "shortName": "أ"
         },
         {
             "name": "Arabic Alef with Hamza Below",
             "title": "Arabic letter ALEF WITH HAMZA BELOW (إ)",
-            "shortName": "AR_ALEF_HAMZA_BLW"
+            "shortName": "إ"
         },
         {
             "name": "Arabic Fatha",
             "title": "Arabic FATHA ( َ )",
-            "shortName": "AR_FATHA"
+            "shortName": "َ"
         },
         {
             "name": "Arabic Damma",
             "title": "Arabic DAMMA ( ُ )",
-            "shortName": "AR_DAMMA"
+            "shortName": "ُ"
         },
         {
             "name": "Arabic Kasra",
             "title": "Arabic KASRA ( ِ )",
-            "shortName": "AR_KASRA"
+            "shortName": "ِ"
         },
         {
             "name": "Arabic Shadda",
             "title": "Arabic SHADDA ( ّ )",
-            "shortName": "AR_SHADDA"
+            "shortName": "ّ"
         },
         {
             "name": "Arabic Sukun",
             "title": "Arabic SUKUN ( ْ )",
-            "shortName": "AR_SUKUN"
+            "shortName": "ْ"
         },
         {
             "name": "Arabic Fathatan",
             "title": "Arabic FATHATAN (ً)",
-            "shortName": "AR_FATHATAN"
+            "shortName": "ً"
         },
         {
             "name": "Arabic Dammatan",
             "title": "Arabic DAMMATAN (ٌ )",
-            "shortName": "AR_DAMMATAN"
+            "shortName": "ٌ"
         },
         {
             "name": "Arabic Kasratan",
             "title": "Arabic KASRATAN (ٍ)",
-            "shortName": "AR_KASRATAN"
+            "shortName": "ٍ"
         },
         {
             "name": "Arabic Tatweel",
             "title": "Arabic TATWEEL ( ـ )",
-            "shortName": "AR_TATWEEL"
+            "shortName": "ـ"
         },
         {
             "name": "Arabic Comma",
             "title": "Arabic COMMA (،)",
-            "shortName": "AR_COMMA"
+            "shortName": "،"
         },
         {
             "name": "Arabic Semicolon",
             "title": "Arabic SEMICOLON (؛)",
-            "shortName": "AR_SEMICOLON"
+            "shortName": "؛"
         },
         {
             "name": "Arabic Question Mark",
             "title": "Arabic QUESTION MARK (؟)",
-            "shortName": "AR_QUESTION"
+            "shortName": "؟"
         },
         {
             "name": "Arabic Waw with Hamza",
             "title": "Arabic letter WAW WITH HAMZA ABOVE (ؤ)",
-            "shortName": "AR_WAW_HAMZA"
+            "shortName": "ؤ"
         },
-
         {
             "name": "Unicode Linux",
             "title": "Set Unicode mode: Linux",
@@ -352,6 +349,5 @@
             "title": "Toggle unnoticeable mouse jiggler (1-3s random tiny moves)",
             "shortName": "JIGGLE"
         }
-
     ]
 }
