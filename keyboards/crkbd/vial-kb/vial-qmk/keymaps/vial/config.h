@@ -98,9 +98,9 @@
 //
 // Recommended: Enable for home row mods to avoid accidental capitals
 
-//OK//#ifndef CHORDAL_HOLD
-//OK//#define CHORDAL_HOLD
-//OK//#endif
+#ifndef CHORDAL_HOLD
+#define CHORDAL_HOLD
+#endif
 
 // Chordal Hold Manual - Manually define which keys are on which hand
 // Corne: 3x6 split
@@ -151,7 +151,7 @@
 // Recommended: Start at 175, work down to 135-150 for fast typing
 // Lower values: Easier to trigger capitals, faster typing
 // Higher values: More deliberate, fewer accidental capitals
-#define AUTO_SHIFT_TIMEOUT 175
+#define AUTO_SHIFT_TIMEOUT 135
 
 // No Auto Shift Special - Do not auto-shift special keys
 // Includes: -_, =+, [{, ]}, ;:, '", ,<, .>, /?, KC_TAB
@@ -167,7 +167,7 @@
 // Without this: Hold 'a' past timeout = AAAA (repeating capitals)
 // With this: Hold 'a' past timeout = A (single capital, no repeat)
 // Recommended: Enable (prevents unwanted character spam)
-//OK//#define AUTO_SHIFT_NO_AUTO_REPEAT
+#define AUTO_SHIFT_NO_AUTO_REPEAT
 
 // No Auto Shift Alpha - Do not auto-shift alphabetic keys (A-Z)
 // Uncomment to disable auto-shift on letters entirely
@@ -226,6 +226,9 @@
 // this will send the tap keycode even if you held it past TAPPING_TERM
 // Useful for modifier keys that can also be tapped (like Shift on Enter)
 // #define RETRO_TAPPING
+
+#define HOLD_ON_OTHER_KEY_PRESS
+// #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 // ==================== SWAP HANDS CONFIGURATION ====================
 
@@ -432,7 +435,7 @@
 // Default: 1 key event per scan cycle
 // Useful for: Fast typing, chording, simultaneous keypresses
 // Recommended: 4 for heavy chording, 8-12 for gaming/combos
-//OK//#define QMK_KEYS_PER_SCAN 4
+#define QMK_KEYS_PER_SCAN 4
 
 // ==================== NKRO CONFIGURATION ====================
 // NKRO is ENABLED in rules.mk but NOT forced on boot
@@ -583,6 +586,7 @@
 
 // LED count and split configuration
 #define RGB_MATRIX_LED_COUNT 46 // Total LEDs: 46 (23 per side)
+#undef RGB_MATRIX_SPLIT
 #define RGB_MATRIX_SPLIT {23, 23} // 23 LEDs on left, 23 on right
 
 // Sleep and timeout behavior
@@ -630,4 +634,3 @@
 
 #define PALETTEFX_ENABLE_ALL_EFFECTS  // cycle with RM_NEXT/RM_PREV
 #define PALETTEFX_ENABLE_ALL_PALETTES // cycle with RM_HUEU/RM_HUED
-
