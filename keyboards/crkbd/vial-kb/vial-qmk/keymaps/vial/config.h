@@ -237,19 +237,18 @@
 // Tap-toggle count - Number of taps to toggle swap hands
 // Default: TAPPING_TOGGLE (usually 5)
 // Tapping SH_TT this many times will toggle swap hands on/off
-#define SWAP_HANDS_TAPPING_TOGGLE 5  // Uncomment to customize
+#define SWAP_HANDS_TAPPING_TOGGLE 5 // Uncomment to customize
 
 // ==================== UNICODE CONFIGURATION ====================
 
 // Unicode Selected Modes - Limit which modes can be cycled through
-// Modes: UNICODE_MODE_LINUX, UNICODE_MODE_WINDOWS, UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
-// Defining this list restricts UC_NEXT/UC_PREV to only these modes
-// OS detection will auto-set the initial mode; UC_NEXT/UC_PREV cycle through these
-#define UNICODE_SELECTED_MODES \
-    UNICODE_MODE_LINUX, \
-    UNICODE_MODE_WINDOWS, \
-    UNICODE_MODE_WINCOMPOSE, \
-    UNICODE_MODE_MACOS
+// Modes: UNICODE_MODE_LINUX, UNICODE_MODE_WINDOWS, UNICODE_MODE_WINCOMPOSE,
+// UNICODE_MODE_MACOS Defining this list restricts UC_NEXT/UC_PREV to only these
+// modes OS detection will auto-set the initial mode; UC_NEXT/UC_PREV cycle
+// through these
+#define UNICODE_SELECTED_MODES                                                 \
+  UNICODE_MODE_LINUX, UNICODE_MODE_WINDOWS, UNICODE_MODE_WINCOMPOSE,           \
+      UNICODE_MODE_MACOS
 
 // Unicode Cycle Persist - Remember last used Unicode mode across reboots
 // Default: true (saves mode to EEPROM)
@@ -283,7 +282,7 @@
 // Default: 300ms (fast typing required)
 // Recommended: 500-1000ms for comfortable use
 // Set to 0 with LEADER_NO_TIMEOUT for unlimited time
-//#define LEADER_TIMEOUT 1000
+// #define LEADER_TIMEOUT 1000
 #define LEADER_TIMEOUT 800
 
 // Per-key timing - Reset timeout after each key in sequence
@@ -361,14 +360,15 @@
 // Higher values: Slower playback, more compatible with some software
 // Lower values: Faster playback, useful for gaming
 // #define DYNAMIC_MACRO_DELAY 20
-#define DYNAMIC_MACRO_DELAY 10  // 10ms between keys
+#define DYNAMIC_MACRO_DELAY 10 // 10ms between keys
 // Good balance between speed and compatibility
 
 // Optional: Disable nested macros (call one macro from another)
 // Saves a small amount of code space
 // #define DYNAMIC_MACRO_NO_NESTING
 
-// ==================== VIAL DYNAMIC FEATURE MEMORY ALLOCATION ====================
+// ==================== VIAL DYNAMIC FEATURE MEMORY ALLOCATION
+// ====================
 
 #define VIAL_ENABLE_SETTINGS
 
@@ -416,15 +416,15 @@
 
 // Mouse cursor acceleration (default mode)
 // Adjust these values for comfortable mouse control from keyboard
-#define MOUSEKEY_INTERVAL        7   // Time between cursor movements (ms)
-#define MOUSEKEY_DELAY           0   // Delay before cursor starts moving (ms)
-#define MOUSEKEY_TIME_TO_MAX     60  // Time until max speed is reached
-#define MOUSEKEY_MAX_SPEED       8   // Maximum cursor speed
-#define MOUSEKEY_MOVE_DELTA      1   // Acceleration increment
+#define MOUSEKEY_INTERVAL 7     // Time between cursor movements (ms)
+#define MOUSEKEY_DELAY 0        // Delay before cursor starts moving (ms)
+#define MOUSEKEY_TIME_TO_MAX 60 // Time until max speed is reached
+#define MOUSEKEY_MAX_SPEED 8    // Maximum cursor speed
+#define MOUSEKEY_MOVE_DELTA 1   // Acceleration increment
 
 // Mouse wheel settings
-#define MOUSEKEY_WHEEL_DELAY     0   // Delay before wheel starts (ms)
-#define MOUSEKEY_WHEEL_INTERVAL  76  // Time between wheel movements (ms)
+#define MOUSEKEY_WHEEL_DELAY 0     // Delay before wheel starts (ms)
+#define MOUSEKEY_WHEEL_INTERVAL 76 // Time between wheel movements (ms)
 
 // ==================== QMK KEYS PER SCAN ====================
 
@@ -469,7 +469,7 @@
 // Increase number of macros available in Vial GUI (default: 16)
 // Increased to 32 for extended macro use
 // RP2040 has sufficient space for 32-128 macros
-#define DYNAMIC_KEYMAP_MACRO_COUNT 32  // or 40, 64, 128, etc.
+#define DYNAMIC_KEYMAP_MACRO_COUNT 32 // or 40, 64, 128, etc.
 
 // ==================== LAYER LOCK CONFIGURATION ====================
 
@@ -488,13 +488,14 @@
 // Serial communication pin (UART)
 // Adjust based on your RP2040's UART pin configuration
 // Common pins: GP0, GP1, GP4, GP5, etc.
-//#define SOFT_SERIAL_PIN               GP12  // TX pin on UART0 (pin 15)
-                                            //
+// #define SOFT_SERIAL_PIN               GP12  // TX pin on UART0 (pin 15)
+//
 // Handedness detection
 // EE_HANDS: Eeprom-based handedness (requires programming each side separately)
 // MASTER_LEFT: Left side is always master (requires USB always on left)
 // MASTER_RIGHT: Right side is always master (requires USB always on right)
-// #define SPLIT_HAND_PIN                GP21  // Hand detection pin, adjust based on your wiring
+// #define SPLIT_HAND_PIN                GP21  // Hand detection pin, adjust
+// based on your wiring
 
 // Configure GP19 as input with pull-up for stable hand detection
 // GND on left half pulls LOW (detected as left)
@@ -503,7 +504,7 @@
 
 // Debounce settings for split keyboard
 // Reduce debounce for responsive split keyboard
-#define DEBOUNCE                      5
+#define DEBOUNCE 5
 
 // Master side designation
 // Left side is the master (USB connected to left half)
@@ -516,7 +517,7 @@
 // Useful for displaying LED indicators on slave side
 #define SPLIT_LED_STATE_ENABLE
 // Already defined (keeping for reference)
-//#define SPLIT_LED_STATE_SYNC          // Alias for SPLIT_LED_STATE_ENABLE
+// #define SPLIT_LED_STATE_SYNC          // Alias for SPLIT_LED_STATE_ENABLE
 
 // Activity Sync - Sync activity timestamps between halves
 // Enables proper timeout behavior on both sides
@@ -556,9 +557,9 @@
 // ==================== SPLIT MISC ====================
 
 // Watchdog timer for split communication recovery
-#define SPLIT_WDT_WINDOW_MS           100
+#define SPLIT_WDT_WINDOW_MS 100
 
-//#define SPLIT_OLED_ENABLE             // (Enable if you have OLEDs)
+// #define SPLIT_OLED_ENABLE             // (Enable if you have OLEDs)
 
 // ==================== RGB MATRIX CONFIGURATION ====================
 
@@ -566,25 +567,27 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
 // Default RGB settings on boot
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_UP_DOWN  // Boot with vertical gradient
-#define RGB_MATRIX_DEFAULT_ON true                           // RGB enabled on boot
+#define RGB_MATRIX_DEFAULT_MODE                                                \
+  RGB_MATRIX_GRADIENT_UP_DOWN      // Boot with vertical gradient
+#define RGB_MATRIX_DEFAULT_ON true // RGB enabled on boot
 
 // Reactive effects - Respond to keypresses and releases
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS   // Enable framebuffer-based effects (typing heatmap, etc.)
-#define RGB_MATRIX_KEYPRESSES             // Effects trigger on key press (default)
-#define RGB_MATRIX_KEYRELEASES            // Effects also trigger on key release
+#define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Enable framebuffer-based effects
+                                       // (typing heatmap, etc.)
+#define RGB_MATRIX_KEYPRESSES          // Effects trigger on key press (default)
+#define RGB_MATRIX_KEYRELEASES         // Effects also trigger on key release
 
 // Layer behavior - Allow layer to override RGB off state
 // When a layer has custom RGB, it overrides the "RGB off" setting
 #define RGB_MATRIX_LAYERS_OVERRIDE_RGB_OFF
 
 // LED count and split configuration
-#define RGB_MATRIX_LED_COUNT 46          // Total LEDs: 46 (23 per side)
-#define RGB_MATRIX_SPLIT { 23, 23 }      // 23 LEDs on left, 23 on right
+#define RGB_MATRIX_LED_COUNT 46 // Total LEDs: 46 (23 per side)
+#define RGB_MATRIX_SPLIT {23, 23} // 23 LEDs on left, 23 on right
 
 // Sleep and timeout behavior
-#define RGB_MATRIX_SLEEP                 // Turn off RGB when suspended
-#define RGB_MATRIX_TIMEOUT 300000        // Auto-off after 5 minutes (300,000ms)
+#define RGB_MATRIX_SLEEP          // Turn off RGB when suspended
+#define RGB_MATRIX_TIMEOUT 300000 // Auto-off after 5 minutes (300,000ms)
 
 // Trigger behavior - Keypress triggers RGB immediately (more responsive)
 #define RGB_TRIGGER_ON_KEYDOWN
@@ -615,14 +618,15 @@
 // Optional: Maximum brightness limit (saves power)
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
 
-// ==================== RGB MATRIX + PALETTEFX CONFIGURATION ====================
+// ==================== RGB MATRIX + PALETTEFX CONFIGURATION
+// ====================
 
 // PaletteFx uses the hue setting to select palettes
 // Standard RGB_MATRIX_HUE_STEP applies (default 8)
 // 16 palettes available via hue adjustment (RM_HUEU/RM_HUED)
 
 // Optional: Disable shared RGB keycodes to avoid conflicts
-//#define RGB_MATRIX_DISABLE_SHARED_KEYCODES
+// #define RGB_MATRIX_DISABLE_SHARED_KEYCODES
 
 #define PALETTEFX_ENABLE_ALL_EFFECTS  // cycle with RM_NEXT/RM_PREV
 #define PALETTEFX_ENABLE_ALL_PALETTES // cycle with RM_HUEU/RM_HUED
