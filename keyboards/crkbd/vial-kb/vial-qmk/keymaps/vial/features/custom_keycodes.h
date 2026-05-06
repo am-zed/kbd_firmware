@@ -74,5 +74,8 @@ enum custom_keycodes {
     CK_UNI_WINDOWS,    // Force UNICODE_MODE_WINDOWS
     CK_UNI_WINCOMPOSE, // Force UNICODE_MODE_WINCOMPOSE
 
-    CUSTOM_KEYCODE_COUNT,
+  // Mouse jiggler
+  CK_MOUSE_JIGGLE,
+
+  CUSTOM_KEYCODE_COUNT,
 };

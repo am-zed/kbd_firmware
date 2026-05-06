@@ -346,6 +346,11 @@
             "name": "Unicode WinCompose",
             "title": "Set Unicode mode: WinCompose",
             "shortName": "UNI_WINCOMPOSE"
+        },
+        {
+            "name": "Mouse Jiggler",
+            "title": "Toggle unnoticeable mouse jiggler (1-3s random tiny moves)",
+            "shortName": "JIGGLE"
         }
 
     ]

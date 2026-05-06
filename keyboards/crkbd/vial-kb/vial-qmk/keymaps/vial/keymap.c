@@ -1,11 +1,14 @@
 #include QMK_KEYBOARD_H
 
-#include "features/rgb_matrix.h"
-#include "features/shift_backspace.h"
-#include "features/leader_key.h"
-#include "process_unicode.h"
 #include "features/custom_keycodes.h"
 #include "features/kb_layout.h"
+#include "features/leader_key.h"
+#include "features/rgb_matrix.h"
+#include "features/shift_backspace.h"
+#include "process_unicode.h"
+
+bool jiggle_enabled = false;
+uint16_t jiggle_timer;
 
 static bool is_shift_held(void) {
     uint8_t mods = get_mods();
@@ -342,7 +345,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+  case CK_MOUSE_JIGGLE:
+    if (record->event.pressed) {
+      jiggle_enabled = !jiggle_enabled;
+      jiggle_timer = timer_read();
     }
+    return false;
+  }
 
-    return true; // Continue processing for other keys
+  return true; // Continue processing for other keys
+}
+
+void matrix_scan_user(void) {
+  if (jiggle_enabled && timer_elapsed(jiggle_timer) > 5000) {
+    tap_code16(KC_MS_UP);   // move mouse up
+    tap_code16(KC_MS_DOWN); // then down
+    jiggle_timer = timer_read();
+  }
 }
