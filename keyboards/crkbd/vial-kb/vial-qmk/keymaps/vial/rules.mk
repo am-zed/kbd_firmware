@@ -106,7 +106,7 @@ LEADER_ENABLE      = yes
 # Raw HID - Bidirectional communication with host computer
 # Allows sending/receiving data over HID interface
 # Useful for custom utilities, configuration, metrics, etc.
-RAW_ENABLE         = no
+RAW_ENABLE         = yes
 
 # Swap Hands - Mirror keyboard for one-handed typing
 # Allows swapping left/right halves (useful for accessibility/gaming)
