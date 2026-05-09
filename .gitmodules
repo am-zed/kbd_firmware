@@ -1,5 +1,3 @@
 [submodule "src/vial-kb/vial-qmk"]
 	path = src/vial-kb/vial-qmk
 	url = https://github.com/vial-kb/vial-qmk.git
-	branch = qmk-master
-	ignore = dirty
