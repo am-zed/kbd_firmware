@@ -25,6 +25,14 @@ vial-qmk-init:
 	ln -s $(shell pwd)/keyboards/${KB}/vial-kb/vial-qmk/keymaps src/vial-kb/vial-qmk/keyboards/tmp/${KB}/keymaps
 	mkdir -p keyboards/${KB}/vial-kb/vial-qmk/.build
 
+vial-qmk-compiledb-once:
+	$(eval KB := ${kb})
+	$(eval KR := ${kr})
+	$(eval KM := ${km})
+	$(eval FILE := $(shell echo "${kb}_${kr}_${km}" | sed 's/\//_/'))
+	cd src/vial-kb/vial-qmk; qmk compile --compiledb -kb tmp/${KB}/${KR} -km ${KM} -j 6
+	cp -f src/vial-kb/vial-qmk/.build/tmp_${FILE}.uf2 keyboards/${KB}/vial-kb/vial-qmk/.build/${FILE}.uf2 | true
+
 vial-qmk-compile:
 	$(eval KB := ${kb})
 	$(eval KR := ${kr})
