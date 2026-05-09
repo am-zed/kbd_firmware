@@ -1,16 +1,19 @@
-.PHONY: git-submodule-init, git-submodule-update, vial-qmk-clean, vial-qmk-init, vial-qmk-compile, vial-qmk-flash, vial-qmk-init-all, vial-qmk-compile-all, update-all, vial-corne41
+.PHONY: git-my-modules-add, git-submodule-update, vial-qmk-clean, vial-qmk-init, vial-qmk-compile, vial-qmk-flash, vial-qmk-init-all, vial-qmk-compile-all, update-all, vial-corne41
 
 KB := crkbd
 KR := rev4_1
 KM := vial
 
-git-submodule-init:
-	git submodule update --remote
-	git submodule update --init --recursive
+git-my-submodules-add:
 	cd src/vial-kb/vial-qmk; git submodule add https://github.com/getreuer/qmk-modules.git modules/getreuer
+	cd src/vial-kb/vial-qmk; git submodule add https://github.com/srwi/qmk-modules.git modules/srwi
 
-git-submodule-update:
-	git submodule update --remote --recursive
+git-submodule-init:
+	git submodule update --init --recursive
+	#git submodule update --remote
+
+#git-submodule-update:
+#	git submodule update --remote --recursive
 
 vial-qmk-clean:
 	rm -rf src/vial-kb/vial-qmk/keyboards/tmp
