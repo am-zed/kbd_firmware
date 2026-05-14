@@ -6,3 +6,6 @@
 
 # ignore .uf2
 *.uf2
+
+# ignore src
+/src/*
