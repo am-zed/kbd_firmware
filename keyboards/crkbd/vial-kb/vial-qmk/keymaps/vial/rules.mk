@@ -36,10 +36,6 @@ COMMAND_ENABLE = no
 # Key Lock feature - hold next pressed key until pressed again
 KEY_LOCK_ENABLE    = yes
 
-# Macros - send multiple keystrokes with custom keycodes
-# Enables SEND_STRING and macro processing
-MACRO_ENABLE       = yes
-
 # Layer Lock feature - lock momentary layers in place
 # Allows temporarily accessed layers (MO, LT, OSL) to stay active
 LAYER_LOCK_ENABLE  = yes
@@ -135,7 +131,8 @@ CLICKY_ENABLE = no
 # LTO can sometimes cause issues with certain toolchains or configurations
 # Disable if you encounter compilation errors
 LTO_ENABLE         = no
-EXTRAFLAGS        += "-flto=none"
+# or enable it (setting to yes not working)
+#EXTRAFLAGS        += -flto=none
 
 # Split keyboard configuration
 # Corne Choc v4.1 uses two RP2040 MCUs connected via serial (TRRS cable)
@@ -152,55 +149,3 @@ RGBLIGHT_ENABLE    = no
 # Enable RGB_MATRIX for per-key RGB control
 RGB_MATRIX_ENABLE  = yes
 
-# Enable all RGB Matrix effects
-RGB_MATRIX_DEFAULT_MODE        = RGB_MATRIX_GRADIENT_UP_DOWN
-RGB_MATRIX_DEFAULT_SPD         = 127
-
-# Individual effect enables (all effects)
-ENABLE_RGB_MATRIX_ALPHAS_MODS                = yes
-ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN           = yes
-ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT        = yes
-ENABLE_RGB_MATRIX_BREATHING                  = yes
-ENABLE_RGB_MATRIX_BAND_SAT                   = yes
-ENABLE_RGB_MATRIX_BAND_VAL                   = yes
-ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT          = yes
-ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL          = yes
-ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT            = yes
-ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL            = yes
-ENABLE_RGB_MATRIX_CYCLE_ALL                  = yes
-ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT           = yes
-ENABLE_RGB_MATRIX_CYCLE_UP_DOWN              = yes
-ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON     = yes
-ENABLE_RGB_MATRIX_CYCLE_OUT_IN               = yes
-ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL          = yes
-ENABLE_RGB_MATRIX_CYCLE_PINWHEEL             = yes
-ENABLE_RGB_MATRIX_CYCLE_SPIRAL               = yes
-ENABLE_RGB_MATRIX_DUAL_BEACON                = yes
-ENABLE_RGB_MATRIX_RAINBOW_BEACON             = yes
-ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS          = yes
-ENABLE_RGB_MATRIX_RAINDROPS                  = yes
-ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS        = yes
-ENABLE_RGB_MATRIX_HUE_BREATHING              = yes
-ENABLE_RGB_MATRIX_HUE_PENDULUM               = yes
-ENABLE_RGB_MATRIX_HUE_WAVE                   = yes
-ENABLE_RGB_MATRIX_TYPING_HEATMAP             = yes
-ENABLE_RGB_MATRIX_DIGITAL_RAIN               = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE             = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE        = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE   = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS       = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS  = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS       = yes
-ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS  = yes
-ENABLE_RGB_MATRIX_SPLASH                     = yes
-ENABLE_RGB_MATRIX_MULTISPLASH                = yes
-ENABLE_RGB_MATRIX_SOLID_SPLASH               = yes
-ENABLE_RGB_MATRIX_SOLID_MULTISPLASH          = yes
-ENABLE_RGB_MATRIX_STARFIELD                  = yes
-ENABLE_RGB_MATRIX_STARFIELD_ALT              = yes
-ENABLE_RGB_MATRIX_RIVER                      = yes
-ENABLE_RGB_MATRIX_RIVER_GRADIENT             = yes
-ENABLE_RGB_MATRIX_LANDSCAPE                  = yes
-ENABLE_RGB_MATRIX_LANDSCAPE_ALT              = yes
-ENABLE_RGB_MATRIX_SNOW                       = yes
-ENABLE_RGB_MATRIX_SNOW_ALT                   = yes

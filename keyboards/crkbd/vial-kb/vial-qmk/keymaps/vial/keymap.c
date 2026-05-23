@@ -8,8 +8,8 @@
 #include "features/shift_backspace.h"
 #include "process_unicode.h"
 
-bool jiggle_enabled = false;
-uint16_t jiggle_timer;
+static bool jiggle_enabled = false;
+static uint16_t jiggle_timer;
 
 static bool is_shift_held(void) {
   uint8_t mods = get_mods();
@@ -48,6 +48,10 @@ bool sentence_case_check_ending(const uint16_t *buffer) {
   }
   return true; // Real sentence ending; capitalize next letter.
 }
+
+//  for case CK_SH_TT:
+static uint16_t sh_tt_timer = 0;
+static uint8_t sh_tt_count = 0;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -91,9 +95,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_SH_TT:
     // Tap-toggle: tap 5x to lock, hold for momentary
-    static uint16_t sh_tt_timer = 0;
-    static uint8_t sh_tt_count = 0;
-
     if (record->event.pressed) {
       if (timer_elapsed(sh_tt_timer) < TAPPING_TERM) {
         sh_tt_count++;
@@ -119,7 +120,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       swap_hands_on();
       set_oneshot_layer(get_highest_layer(layer_state), ONESHOT_START);
     }
-    return true; // Let the next key process normally
+    return false; // Let the next key process normally
 
   // ----- Sentence Case keys -----
   case CK_SENTENCE_CASE_ON:
@@ -422,3 +423,19 @@ void matrix_scan_user(void) {
     jiggle_timer = timer_read();
   }
 }
+
+char chordal_hold_handedness(keypos_t key) {
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+}
+
+////  in config.h for this function to work
+////  you must #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+////  and remove #define HOLD_ON_OTHER_KEY
+//bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+//    switch (keycode) {
+//        case RSFT_T(KC_QUOTE):
+//            return true;
+//        default:
+//            return false;
+//    }
+//}

@@ -47,7 +47,7 @@
         {
             "name": "Swap Hands Toggle",
             "title": "Toggle swap hands on/off",
-            "shortName": "SH_TOGG"
+            "shortName": "SH_TOG"
         },
         {
             "name": "Swap Hands Momentary",
@@ -77,17 +77,17 @@
         {
             "name": "Sentence Case ON",
             "title": "Turn Sentence Case ON",
-            "shortName": "SENTENCE_CASE_ON"
+            "shortName": "SC_ON"
         },
         {
             "name": "Sentence Case OFF",
             "title": "Turn Sentence Case OFF",
-            "shortName": "SENTENCE_CASE_OFF"
+            "shortName": "SC_OFF"
         },
         {
             "name": "Sentence Case Toggle",
             "title": "Toggle Sentence Case",
-            "shortName": "SENTENCE_CASE_TOGGLE"
+            "shortName": "SC_TOG"
         },
         {
             "name": "Arabic Alef",
@@ -332,17 +332,17 @@
         {
             "name": "Unicode Linux",
             "title": "Set Unicode mode: Linux",
-            "shortName": "UNI_LINUX"
+            "shortName": "U_LNX"
         },
         {
             "name": "Unicode Windows",
             "title": "Set Unicode mode: Windows",
-            "shortName": "UNI_WINDOWS"
+            "shortName": "U_WIN"
         },
         {
             "name": "Unicode WinCompose",
             "title": "Set Unicode mode: WinCompose",
-            "shortName": "UNI_WINCOMPOSE"
+            "shortName": "U_WCmp"
         },
         {
             "name": "Mouse Jiggler",

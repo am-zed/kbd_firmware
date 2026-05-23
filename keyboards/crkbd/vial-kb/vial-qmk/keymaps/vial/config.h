@@ -151,7 +151,8 @@
 // Recommended: Start at 175, work down to 135-150 for fast typing
 // Lower values: Easier to trigger capitals, faster typing
 // Higher values: More deliberate, fewer accidental capitals
-#define AUTO_SHIFT_TIMEOUT 135
+// must be greater than TAPPING_TERM
+#define AUTO_SHIFT_TIMEOUT 210
 
 // No Auto Shift Special - Do not auto-shift special keys
 // Includes: -_, =+, [{, ]}, ;:, '", ,<, .>, /?, KC_TAB
@@ -202,7 +203,8 @@
 // Essential for home row mods and fast typing
 // Example: Hold A (LSFT_T), tap B → Result: Shift+B (not ab)
 // Without this: Hold A, tap B → Result: ab (if released within TAPPING_TERM)
-#define PERMISSIVE_HOLD
+//// NOTE: HOLD_ON_OTHER_KEY_PRESS takes precedence
+//#define PERMISSIVE_HOLD
 
 // Per-key Permissive Hold - Allow selective enabling per key
 // Enable this to use get_permissive_hold() callback for granular control
@@ -212,7 +214,10 @@
 // If you tap a key, release it, and hold it again (double-tap-hold),
 // this forces tap action on second press unless TAPPING_TERM expires
 // Useful for preventing accidental holds on repeated keys
-#define TAPPING_FORCE_HOLD
+//// deprecated
+//#define TAPPING_FORCE_HOLD
+//// replaced by
+//#define QUICK_TAP_TERM 0
 
 // Quick Tap Term - Milliseconds for quick tap repeat
 // If you press a dual-role key, release, then press again within this time,
@@ -229,6 +234,8 @@
 
 #define HOLD_ON_OTHER_KEY_PRESS
 // #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+
+#define SPECULATIVE_HOLD
 
 // ==================== SWAP HANDS CONFIGURATION ====================
 
@@ -569,11 +576,6 @@
 // USB Suspend - Disable RGB when USB is suspended (computer sleeps)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED
 
-// Default RGB settings on boot
-#define RGB_MATRIX_DEFAULT_MODE                                                \
-  RGB_MATRIX_GRADIENT_UP_DOWN      // Boot with vertical gradient
-#define RGB_MATRIX_DEFAULT_ON true // RGB enabled on boot
-
 // Reactive effects - Respond to keypresses and releases
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Enable framebuffer-based effects
                                        // (typing heatmap, etc.)
@@ -600,6 +602,12 @@
 // Prevents issues with some USB hubs/ports
 #define USB_SUSPEND_WAKEUP_DELAY 200
 
+// Optional: Set default brightness (0-255)
+// #define RGB_MATRIX_DEFAULT_VAL 128
+
+// Optional: Maximum brightness limit (saves power)
+// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+
 // ==================== RGB MATRIX PERFORMANCE ====================
 
 // Process 10 LEDs per animation frame (46 total / 5 = ~10)
@@ -610,17 +618,14 @@
 // Reduces USB bandwidth usage
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16
 
+#define RGB_MATRIX_DEFAULT_SPD 127
+
 // ==================== RGB MATRIX COLOR DEFAULTS ====================
 
-// Already set in rules.mk, documenting here for reference:
-// RGB_MATRIX_DEFAULT_MODE = RGB_MATRIX_GRADIENT_UP_DOWN
-// RGB_MATRIX_DEFAULT_SPD = 127
-
-// Optional: Set default brightness (0-255)
-// #define RGB_MATRIX_DEFAULT_VAL 128
-
-// Optional: Maximum brightness limit (saves power)
-// #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200
+// Default RGB settings on boot
+#define RGB_MATRIX_DEFAULT_MODE                                                \
+  RGB_MATRIX_GRADIENT_UP_DOWN      // Boot with vertical gradient
+#define RGB_MATRIX_DEFAULT_ON true // RGB enabled on boot
 
 // ==================== RGB MATRIX + PALETTEFX CONFIGURATION
 // ====================
@@ -634,3 +639,52 @@
 
 #define PALETTEFX_ENABLE_ALL_EFFECTS  // cycle with RM_NEXT/RM_PREV
 #define PALETTEFX_ENABLE_ALL_PALETTES // cycle with RM_HUEU/RM_HUED
+
+// Individual effect enables (all effects)
+#define ENABLE_RGB_MATRIX_ALPHAS_MODS
+#define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+#define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_BREATHING
+#define ENABLE_RGB_MATRIX_BAND_SAT
+#define ENABLE_RGB_MATRIX_BAND_VAL
+#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+#define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+#define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+#define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+#define ENABLE_RGB_MATRIX_CYCLE_ALL
+#define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+#define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+#define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+#define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+#define ENABLE_RGB_MATRIX_DUAL_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+#define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+#define ENABLE_RGB_MATRIX_RAINDROPS
+#define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+#define ENABLE_RGB_MATRIX_HUE_BREATHING
+#define ENABLE_RGB_MATRIX_HUE_PENDULUM
+#define ENABLE_RGB_MATRIX_HUE_WAVE
+#define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+#define ENABLE_RGB_MATRIX_SPLASH
+#define ENABLE_RGB_MATRIX_MULTISPLASH
+#define ENABLE_RGB_MATRIX_SOLID_SPLASH
+#define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#define ENABLE_RGB_MATRIX_STARFIELD
+#define ENABLE_RGB_MATRIX_STARFIELD_ALT
+#define ENABLE_RGB_MATRIX_RIVER
+#define ENABLE_RGB_MATRIX_RIVER_GRADIENT
+#define ENABLE_RGB_MATRIX_LANDSCAPE
+#define ENABLE_RGB_MATRIX_LANDSCAPE_ALT
+#define ENABLE_RGB_MATRIX_SNOW
+#define ENABLE_RGB_MATRIX_SNOW_ALT
