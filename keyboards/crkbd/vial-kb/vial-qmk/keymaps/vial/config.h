@@ -152,23 +152,23 @@
 // Lower values: Easier to trigger capitals, faster typing
 // Higher values: More deliberate, fewer accidental capitals
 // must be greater than TAPPING_TERM
-#define AUTO_SHIFT_TIMEOUT 210
+// #define AUTO_SHIFT_TIMEOUT 210
 
 // No Auto Shift Special - Do not auto-shift special keys
 // Includes: -_, =+, [{, ]}, ;:, '", ,<, .>, /?, KC_TAB
 // Recommended: Enable (prevents unintended symbol shifts)
-#define NO_AUTO_SHIFT_SPECIAL
+// #define NO_AUTO_SHIFT_SPECIAL
 
 // No Auto Shift Numeric - Do not auto-shift numbers (0-9)
 // Prevents holding 1 from producing !
 // Recommended: Enable (most people don't want auto-shift on numbers)
-#define NO_AUTO_SHIFT_NUMERIC
+// #define NO_AUTO_SHIFT_NUMERIC
 
 // Auto Shift No Auto Repeat - Disable key repeat when holding past timeout
 // Without this: Hold 'a' past timeout = AAAA (repeating capitals)
 // With this: Hold 'a' past timeout = A (single capital, no repeat)
 // Recommended: Enable (prevents unwanted character spam)
-#define AUTO_SHIFT_NO_AUTO_REPEAT
+// #define AUTO_SHIFT_NO_AUTO_REPEAT
 
 // No Auto Shift Alpha - Do not auto-shift alphabetic keys (A-Z)
 // Uncomment to disable auto-shift on letters entirely
@@ -197,7 +197,7 @@
 // Default: 200ms
 // Lower values: Faster response, easier to trigger hold accidentally
 // Higher values: More forgiving, but slower hold activation
-#define TAPPING_TERM 200
+#define TAPPING_TERM 140
 
 // Permissive Hold - Trigger hold if another key is tapped during tapping term
 // Essential for home row mods and fast typing
@@ -222,17 +222,16 @@
 // Quick Tap Term - Milliseconds for quick tap repeat
 // If you press a dual-role key, release, then press again within this time,
 // it always taps (ignores hold). Useful for double-tapping letters.
-// Default: TAPPING_TERM (200ms)
 // Set to 0 to disable
-#define QUICK_TAP_TERM 120
+#define QUICK_TAP_TERM 100
 
 // Retro Tapping - Send tap keycode on release if no other key was pressed
 // If you hold a tap-hold key, don't press any other key, then release it,
 // this will send the tap keycode even if you held it past TAPPING_TERM
 // Useful for modifier keys that can also be tapped (like Shift on Enter)
-// #define RETRO_TAPPING
+#define RETRO_TAPPING
 
-#define HOLD_ON_OTHER_KEY_PRESS
+// #define HOLD_ON_OTHER_KEY_PRESS
 // #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
 
 #define SPECULATIVE_HOLD
@@ -362,7 +361,7 @@
 // Dynamic macro buffer size (total keypresses for both macros)
 // Default: 128 keypresses shared between Macro 1 and Macro 2
 // Increase if you need longer macros (consumes RAM)
-#define DYNAMIC_MACRO_SIZE 256
+// #define DYNAMIC_MACRO_SIZE 256
 
 // Delay between each keypress during macro playback (milliseconds)
 // Default: None (0ms = immediate, back-to-back keypresses)

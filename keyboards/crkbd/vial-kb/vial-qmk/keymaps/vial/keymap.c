@@ -164,8 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_AR_JEEM:
     if (record->event.pressed)
-      send_unicode_shifted(0x062C,
-                           0x06A8); // ج (0x062C) -> Shift: ڨ (0x6A8)
+      send_unicode_shifted(0x062C, 0x06A8); // ج (0x062C) -> Shift: ڨ (0x6A8)
     return false;
 
   case CK_AR_HAH:
@@ -427,15 +426,3 @@ void matrix_scan_user(void) {
 char chordal_hold_handedness(keypos_t key) {
     return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
 }
-
-////  in config.h for this function to work
-////  you must #define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
-////  and remove #define HOLD_ON_OTHER_KEY
-//bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-//    switch (keycode) {
-//        case RSFT_T(KC_QUOTE):
-//            return true;
-//        default:
-//            return false;
-//    }
-//}

@@ -2,6 +2,7 @@ VIA_ENABLE         = yes
 VIAL_ENABLE        = yes
 VIALRGB_ENABLE     = yes
 ENCODER_MAP_ENABLE = no
+#SECURE_ENABLE      = yes
 
 # disable unused features
 #AUDIO_ENABLE           = no
@@ -33,7 +34,8 @@ CONSOLE_ENABLE = no
 # Adds Magic+D toggle, Magic+E debug matrix, etc.
 COMMAND_ENABLE = no
 
-# Key Lock feature - hold next pressed key until pressed again
+## NOTE: Conflicts with CAPS_WORD_ENABLE
+## Key Lock feature - hold next pressed key until pressed again
 KEY_LOCK_ENABLE    = yes
 
 # Layer Lock feature - lock momentary layers in place
