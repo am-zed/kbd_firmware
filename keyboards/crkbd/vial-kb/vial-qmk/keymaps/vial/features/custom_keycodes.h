@@ -52,6 +52,7 @@ enum custom_keycodes {
   CK_AR_ALEF_HAMZA_BLW,
 
   // ===== Arabic diacritics and tanwin =====
+  CK_AR_GEH,
   CK_AR_FATHA,
   CK_AR_DAMMA,
   CK_AR_KASRA,

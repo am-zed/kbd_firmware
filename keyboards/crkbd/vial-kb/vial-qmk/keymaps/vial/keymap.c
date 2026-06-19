@@ -164,7 +164,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_AR_JEEM:
     if (record->event.pressed)
-      send_unicode_shifted(0x062C, 0x06A8); // ج (0x062C) -> Shift: ڨ (0x6A8)
+      send_unicode_shifted(0x062C, 0x06A8); // ج (0x062C) -> Shift: ڨ (0x06A8)
     return false;
 
   case CK_AR_HAH:
@@ -316,6 +316,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CK_AR_ALEF_HAMZA_BLW:
     if (record->event.pressed)
       register_unicode(0x0625); // إ
+    return false;
+
+  case CK_AR_GEH:
+    if (record->event.pressed)
+      register_unicode(0x06A8); // ڨ
     return false;
 
   // ===== Arabic diacritics and marks =====

@@ -265,6 +265,11 @@
             "shortName": "إ"
         },
         {
+            "name": "Arabic Qaf with three dots above (Gah)",
+            "title": "Arabic letter Gah (ڨ)",
+            "shortName": "ڨ"
+        },
+        {
             "name": "Arabic Fatha",
             "title": "Arabic FATHA ( َ )",
             "shortName": "َ"
