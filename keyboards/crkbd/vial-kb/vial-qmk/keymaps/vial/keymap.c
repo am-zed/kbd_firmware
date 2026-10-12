@@ -10,6 +10,16 @@
 
 static bool jiggle_enabled = false;
 static uint16_t jiggle_timer;
+static uint16_t jiggle_interval = 2000;
+static uint8_t jiggle_step = 0;
+
+static uint16_t jiggle_rand(uint16_t range) {
+    static uint16_t seed = 0xACE1;
+    seed ^= seed << 7;
+    seed ^= seed >> 9;
+    seed ^= seed << 8;
+    return seed % range;
+}
 
 static bool is_shift_held(void) {
   uint8_t mods = get_mods();
@@ -409,10 +419,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+//  case CK_MOUSE_JIGGLE:
+//    if (record->event.pressed) {
+//      jiggle_enabled = !jiggle_enabled;
+//      jiggle_timer = timer_read();
+//    }
+//    return false;
   case CK_MOUSE_JIGGLE:
     if (record->event.pressed) {
-      jiggle_enabled = !jiggle_enabled;
-      jiggle_timer = timer_read();
+        jiggle_enabled = !jiggle_enabled;
+        jiggle_timer   = timer_read();
+        jiggle_interval = 1000 + jiggle_rand(2001); // 1000-3000 ms
     }
     return false;
   }
@@ -420,12 +437,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true; // Continue processing for other keys
 }
 
+//void matrix_scan_user(void) {
+//  if (jiggle_enabled && timer_elapsed(jiggle_timer) > 5000) {
+//    tap_code16(KC_MS_UP);   // move mouse up
+//    tap_code16(KC_MS_DOWN); // then down
+//    jiggle_timer = timer_read();
+//  }
+//}
+
 void matrix_scan_user(void) {
-  if (jiggle_enabled && timer_elapsed(jiggle_timer) > 5000) {
-    tap_code16(KC_MS_UP);   // move mouse up
-    tap_code16(KC_MS_DOWN); // then down
-    jiggle_timer = timer_read();
-  }
+    if (jiggle_enabled && timer_elapsed(jiggle_timer) >= jiggle_interval) {
+        switch (jiggle_step++ & 3) {
+            case 0: tap_code(KC_MS_UP);    break;
+            case 1: tap_code(KC_MS_RIGHT); break;
+            case 2: tap_code(KC_MS_DOWN);  break;
+            case 3: tap_code(KC_MS_LEFT);  break;
+        }
+
+        jiggle_timer    = timer_read();
+        jiggle_interval = 1000 + jiggle_rand(2001); // randomized 1-3 s
+    }
+
+    // keep any existing code here
 }
 
 char chordal_hold_handedness(keypos_t key) {
