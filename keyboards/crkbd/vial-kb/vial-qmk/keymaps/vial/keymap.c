@@ -169,12 +169,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_AR_HAH:
     if (record->event.pressed)
-      register_unicode(0x062D); // ح
+      send_unicode_shifted(0x062D, 0x067E); // ح (062D) -> Shift: پ (067E)
     return false;
 
   case CK_AR_KHAH:
     if (record->event.pressed)
-      register_unicode(0x062E); // خ
+      send_unicode_shifted(0x062E, 0x2026); // خ (062E) -> Shift: … (2026)
     return false;
 
   case CK_AR_DAL:
@@ -259,7 +259,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_AR_MEEM:
     if (record->event.pressed)
-      register_unicode(0x0645); // م
+      send_unicode_shifted(0x0645, 0x06A5); // م (0645) -> Shift: ڥ  (06A5)
     return false;
 
   case CK_AR_NOON:
@@ -269,7 +269,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_AR_HEH:
     if (record->event.pressed)
-      register_unicode(0x0647); // ه
+      send_unicode_shifted(0x0647, 0xFD4C); // ه (0647) -> Shift: ﵌ (FD4C)
     return false;
 
   case CK_AR_WAW:
@@ -372,7 +372,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // ===== Arabic punctuation =====
   case CK_AR_COMMA:
     if (record->event.pressed)
-      register_unicode(0x060C); // ،
+      send_unicode_shifted(0x060C, 0x003C); // ، (060C) -> Shift: < (003C)
     return false;
 
   case CK_AR_SEMICOLON:
@@ -382,7 +382,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case CK_AR_QUESTION:
     if (record->event.pressed)
-      register_unicode(0x061F); // ؟
+      send_unicode_shifted(0x061F, 0x003E); // ؟ (061F) -> Shift: > (003E)
     return false;
 
   case CK_AR_WAW_HAMZA:

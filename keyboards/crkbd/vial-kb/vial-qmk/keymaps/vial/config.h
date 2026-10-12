@@ -518,7 +518,7 @@
 // Master side designation
 // Left side is the master (USB connected to left half)
 // Right side connects to left via TRRS cable
-#define MASTER_LEFT
+#define MASTER_RIGHT
 
 // ==================== SPLIT SYNCHRONIZATION OPTIONS ====================
 

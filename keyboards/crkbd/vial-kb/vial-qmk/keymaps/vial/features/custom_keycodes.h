@@ -1,5 +1,5 @@
 enum custom_keycodes {
-  CK_LEADER = QK_USER_0,
+  CK_LEADER = QK_KB_0, // Use QK_KB_0 for first custom keycode in Vial
 
   // Hand swap
   CK_SH_TOGG,

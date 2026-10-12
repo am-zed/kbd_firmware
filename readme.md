@@ -83,7 +83,7 @@ Tri-layer is handled by `TRI_LAYER_ENABLE` with `TL_LOWR`/`TL_UPPR` keycodes.
 TAB   Q  W  E  R  T  [LCTL]     [RCTL]  Y  U  I  O  P   BSPC
 LCTL  A  S  D  F  G  [LALT]     [RALT]  H  J  K  L  ;   '
 LSFT  Z  X  C  V  B                     N  M  ,  .  /   ESC
-          LGUI  TL_UPPR  ENT     SPC  TL_LOWR  CK_LEADER
+          LGUI  TL_UPPR  ENT     SPC  TL_LOWR  QK_KB_0(Leader)
 ```
 
 ### Lower Layer (1)
@@ -117,8 +117,7 @@ RGB_MOD  RGB_HUD  RGB_SAD  RGB_VAD  -  -              -  -  -  -  -  -
 ### Leader Key
 
 **File:** `features/leader_key.h`  
-**Activation:** `CK_LEADER` (right thumb key, base layer)
-
+**Activation:** `QK_KB_0` (right thumb key, base layer)  
 **Timeout:** 800ms total; per-key timing resets on each keypress.  
 **Visual feedback:** RGB → purple while active, green on match, red on miss.
 
@@ -339,7 +338,7 @@ Implementation uses `matrix_scan_user()` with `timer_elapsed()`.
 
 ## Custom Keycodes
 
-All custom keycodes are defined in `features/custom_keycodes.h`, starting from `QK_USER_0` to use the keymap-level user keycode range.
+All custom keycodes are defined in `features/custom_keycodes.h`, starting from `QK_KB_0`.
 
 | Range | Purpose |
 |-------|---------|

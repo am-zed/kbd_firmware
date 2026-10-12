@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------'  `--------+--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------+--------.  ,--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, TL_UPPR,  KC_ENT,     KC_SPC, TL_LOWR, CK_LEADER
+                                          KC_LGUI, TL_UPPR,  KC_ENT,     KC_SPC, TL_LOWR, QK_KB_0
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -101,3 +101,4 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #endif
+
