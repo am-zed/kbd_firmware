@@ -4,6 +4,6 @@
   "modules": [
     "getreuer/palettefx",
     "getreuer/sentence_case",
-    "srwi/keypeek_layer_notify"
+    "drashna/keyboard_lock"
   ]
 }
