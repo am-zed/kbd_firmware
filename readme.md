@@ -381,7 +381,7 @@ The `vial.json` `customKeycodes` array mirrors this enum order so Vial GUI displ
 
 | Setting | Value |
 |---------|-------|
-| Master side | Left (`MASTER_LEFT`) |
+| Master side | Right (`MASTER_RIGHT`) |
 | Communication | Serial/TRRS |
 | USB detection | `SPLIT_USB_DETECT`, 2000ms timeout |
 | Watchdog timeout | 3000ms (reboot slave on lost comms) |
