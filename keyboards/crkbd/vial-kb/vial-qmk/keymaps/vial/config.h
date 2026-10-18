@@ -687,3 +687,20 @@
 #define ENABLE_RGB_MATRIX_LANDSCAPE_ALT
 #define ENABLE_RGB_MATRIX_SNOW
 #define ENABLE_RGB_MATRIX_SNOW_ALT
+
+// Lumino cycles among off, LUMINO_LOW_BRIGHTNESS, and LUMINO_HIGH_BRIGHTNESS.
+// The latter two are values between 0.0 (off) and 1.0 (max).
+#define LUMINO_HIGH_BRIGHTNESS  1.0  // = max.
+#define LUMINO_LOW_BRIGHTNESS   (0.4 * (LUMINO_HIGH_BRIGHTNESS))  // = 40%.
+// By default, the set brightness is saved to EEPROM. Uncomment the next line
+// to tell Lumino to never write to EEPROM.
+#define LUMINO_NO_EEPROM
+// Normal idle timeout in milliseconds after which the lighting turns off.
+#define LUMINO_LONG_TIMEOUT     120000  // = 2 minutes.
+// Fast idle timeout, used when few keystrokes were received since the last
+// time the keyboard woke up.
+#define LUMINO_SOON_TIMEOUT     5000    // = 5 seconds.
+// Animated transition time for smoothly changing brightness levels.
+#define LUMINO_TRANSITION       500     // = 500 ms.
+// Lighting color set when `QK_BOOT` is pressed.
+#define LUMINO_BOOT_COLOR       RGB_RED

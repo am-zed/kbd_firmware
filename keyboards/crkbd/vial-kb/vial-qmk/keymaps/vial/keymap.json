@@ -4,6 +4,7 @@
   "modules": [
     "getreuer/palettefx",
     "getreuer/sentence_case",
-    "drashna/keyboard_lock"
+    "drashna/keyboard_lock",
+    "getreuer/lumino"
   ]
 }
