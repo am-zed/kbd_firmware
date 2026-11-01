@@ -59,11 +59,23 @@ bool sentence_case_check_ending(const uint16_t *buffer) {
   return true; // Real sentence ending; capitalize next letter.
 }
 
+#ifdef CHORDAL_HOLD
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
+                       'L', 'L', 'L',            'R', 'R', 'R'
+    );
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  bool is_pressed    = record->event.pressed;
+
   switch (keycode) {
   // ----- Leader key -----
   case CK_LEADER:
-    if (record->event.pressed) {
+    if (is_pressed) {
       leader_start(); // Manually start leader sequence
     }
     return false; // Skip further processing
@@ -74,207 +86,207 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // ----- Swap-hands controls -----
   case CK_SH_TOGG:
-    if (record->event.pressed) {
+    if (is_pressed) {
       swap_hands_toggle();
     }
     return false;
 
   // ----- Sentence Case keys -----
   case CK_SENTENCE_CASE_TOGGLE:
-    if (record->event.pressed) {
+    if (is_pressed) {
       sentence_case_toggle();
     }
     return false;
 
   // ===== Arabic letters =====
   case CK_AR_ALEF:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0627, 0x0623); // ا (0627) -> Shift: أ (0623)
     return false;
 
   case CK_AR_BEH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0628, 0x064B); // ب (0628) -> Shift: ً (064B)
     return false;
 
   case CK_AR_TEH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x062A, 0x0640); // ت (062A) -> Shift: ـ (0640)
     return false;
 
   case CK_AR_THEH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x062B, 0x064F); // ث (062B) -> Shift: ُ (064F)
     return false;
 
   case CK_AR_JEEM:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x062C, 0x06A8); // ج (0x062C) -> Shift: ڨ (0x06A8)
     return false;
 
   case CK_AR_HAH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x062D, 0x067E); // ح (062D) -> Shift: پ (067E)
     return false;
 
   case CK_AR_KHAH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x062E, 0x2026); // خ (062E) -> Shift: … (2026)
     return false;
 
   case CK_AR_DAL:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x062F, 0x0630); // د (062F) -> Shift: ذ (0630)
     return false;
 
   case CK_AR_REH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0631, 0x0632); // ر (0631) -> Shift: ز (0632)
     return false;
 
   case CK_AR_SEEN:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0633, 0x064D); // س (0633) -> Shift: ٍ (064D)
     return false;
 
   case CK_AR_SHEEN:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0634, 0x0650); // ش (0634) -> Shift: ِ (0650)
     return false;
 
   case CK_AR_SAD:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0635, 0x0636); // ص (0635) -> Shift: ض (0636)
     return false;
 
   case CK_AR_TAH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0637, 0x0638); // ط (0637) -> Shift: ظ (0638)
     return false;
 
   case CK_AR_AIN:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0639, 0x063A); // ع (0639) -> Shift: غ (063A)
     return false;
 
   case CK_AR_FEH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0641, 0x0651); // ف (0641) -> Shift: ّ (0651)
     return false;
 
   case CK_AR_QAF:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0642, 0x064C); // ق (0642) -> Shift: ٌ (064C)
     return false;
 
   case CK_AR_KAF:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0643, 0x003A); // ك (0643) -> Shift: : (003A)
     return false;
 
   case CK_AR_LAM:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0644, 0x0622); // ل (0644) -> Shift: آ (0622)
     return false;
 
   case CK_AR_MEEM:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0645, 0x06A5); // م (0645) -> Shift: ڥ  (06A5)
     return false;
 
   case CK_AR_NOON:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0646, 0xFDFA); // ن -> Shift: ﷺ
     return false;
 
   case CK_AR_HEH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0647, 0xFD4C); // ه (0647) -> Shift: ﵌ (FD4C)
     return false;
 
   case CK_AR_WAW:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0648, 0x0624); // و (0648) -> Shift: ؤ (0624)
     return false;
 
   case CK_AR_TEH_MARBUTA:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0629, 0x061B); // ة (0629) -> Shift: ؛ (061B)
     return false;
 
   case CK_AR_HAMZA:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0621, 0x0625); // ء (0621) -> Shift: إ (0625)
     return false;
 
   case CK_AR_YEH:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x064A, 0x064E); // ي (064A) -> Shift: َ (064E)
     return false;
 
   case CK_AR_YEH_HAMZA:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0626, 0xFDFD); // ئ -> Shift: besmellah
     return false;
 
   case CK_AR_ALEF_MAKSURA:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x0649, 0x0652); // ى (0649) -> Shift: ْ (0652)
     return false;
 
   case CK_AR_COMMA:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x060C, 0x003C); // ، (060C) -> Shift: < (003C)
     return false;
 
   case CK_AR_QUESTION:
-    if (record->event.pressed)
+    if (is_pressed)
       send_unicode_shifted(0x061F, 0x003E); // ؟ (061F) -> Shift: > (003E)
     return false;
 
   // ----- User-defined Unicode characters -----
   case CK_UNI_FDFE:
-    if (record->event.pressed)
+    if (is_pressed)
       register_unicode(0xFDFE); // ﷾
     return false;
 
   case CK_UNI_FDFF:
-    if (record->event.pressed)
+    if (is_pressed)
       register_unicode(0xFDFF); // ﷿
     return false;
 
   case CK_UNI_1F932:
-    if (record->event.pressed)
-      register_unicode(0x1F932); // 🤲
+    if (is_pressed)
+      send_unicode_shifted(0x1F932, 0x1F3AF); // 🤲 -> Shift: 🎯
     return false;
 
   // ----- Unicode mode setters -----
   case CK_UNI_LINUX:
-    if (record->event.pressed) {
+    if (is_pressed) {
       set_unicode_input_mode(UNICODE_MODE_LINUX);
     }
     return false;
 
   case CK_UNI_WINDOWS:
-    if (record->event.pressed) {
+    if (is_pressed) {
       set_unicode_input_mode(UNICODE_MODE_WINDOWS);
     }
     return false;
 
   case CK_UNI_WINCOMPOSE:
-    if (record->event.pressed) {
+    if (is_pressed) {
       set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
     }
     return false;
 
 //  case CK_MOUSE_JIGGLE:
-//    if (record->event.pressed) {
+//    if (is_pressed) {
 //      jiggle_enabled = !jiggle_enabled;
 //      jiggle_timer = timer_read();
 //    }
 //    return false;
   case CK_MOUSE_JIGGLE:
-    if (record->event.pressed) {
+    if (is_pressed) {
         jiggle_enabled = !jiggle_enabled;
         jiggle_timer   = timer_read();
         jiggle_interval = 1000 + jiggle_rand(2001); // 1000-3000 ms

@@ -9,10 +9,9 @@
 #define LAYOUT LAYOUT_split_3x6_3_ex2
 
 // Disable audio features at compile time
-#define NO_AUDIO
 #define NO_MUSIC_MODE
 
-#define MOD_MORPH_ENABLE
+// #define MOD_MORPH_ENABLE
 
 // ==================== TRI-LAYER CONFIGURATION ====================
 
@@ -129,17 +128,6 @@
 // Row 3: 3 left thumb + 3 right thumb = 6 total
 //
 
-#define CHORDAL_HOLD_LAYOUT( \
-    K00, K01, K02, K03, K04, K05, K06,  K07, K08, K09, K010, K011, K012, K013, \
-    K10, K11, K12, K13, K14, K15, K16,  K17, K18, K19, K110, K111, K112, K113, \
-    K20, K21, K22, K23, K24, K25,            K26, K27, K28, K29, K210, K211, \
-                   K30, K31, K32,            K33, K34, K35 \
-) \
-    'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R', \
-    'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R', \
-    'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R', \
-                   'L', 'L', 'L',            'R', 'R', 'R'
-
 // ==================== AUTO SHIFT CONFIGURATION ====================
 
 // Auto Shift - Automatically capitalize letters when held longer
@@ -246,7 +234,7 @@
 // Tap-toggle count - Number of taps to toggle swap hands
 // Default: TAPPING_TOGGLE (usually 5)
 // Tapping SH_TT this many times will toggle swap hands on/off
-#define SWAP_HANDS_TAPPING_TOGGLE 5 // Uncomment to customize
+#define TAPPING_TOGGLE 5
 
 // ==================== UNICODE CONFIGURATION ====================
 
@@ -255,9 +243,7 @@
 // UNICODE_MODE_MACOS Defining this list restricts UC_NEXT/UC_PREV to only these
 // modes OS detection will auto-set the initial mode; UC_NEXT/UC_PREV cycle
 // through these
-#define UNICODE_SELECTED_MODES                                                 \
-  UNICODE_MODE_LINUX, UNICODE_MODE_WINDOWS, UNICODE_MODE_WINCOMPOSE,           \
-      UNICODE_MODE_MACOS
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_WINDOWS, UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS
 
 // Unicode Cycle Persist - Remember last used Unicode mode across reboots
 // Default: true (saves mode to EEPROM)
@@ -428,33 +414,12 @@
 #define MOUSEKEY_INTERVAL 7     // Time between cursor movements (ms)
 #define MOUSEKEY_DELAY 0        // Delay before cursor starts moving (ms)
 #define MOUSEKEY_TIME_TO_MAX 60 // Time until max speed is reached
-#define MOUSEKEY_MAX_SPEED 8    // Maximum cursor speed
+#define MOUSEKEY_MAX_SPEED 20   // Maximum cursor speed
 #define MOUSEKEY_MOVE_DELTA 1   // Acceleration increment
 
 // Mouse wheel settings
 #define MOUSEKEY_WHEEL_DELAY 0     // Delay before wheel starts (ms)
 #define MOUSEKEY_WHEEL_INTERVAL 76 // Time between wheel movements (ms)
-
-// ==================== QMK KEYS PER SCAN ====================
-
-// Allows sending more than one key per scan
-// Default: 1 key event per scan cycle
-// Useful for: Fast typing, chording, simultaneous keypresses
-// Recommended: 4 for heavy chording, 8-12 for gaming/combos
-#define QMK_KEYS_PER_SCAN 4
-
-// ==================== NKRO CONFIGURATION ====================
-// NKRO is ENABLED in rules.mk but NOT forced on boot
-// Keyboard starts in 6KRO mode (6-key rollover) for maximum compatibility
-// Use NK_TOGG keycode to enable NKRO when needed
-// NKRO state persists across power cycles
-
-// NKRO Default On - Set to false
-// Keyboard boots in 6KRO mode (6-key rollover + modifiers)
-// User can press NK_TOGG to enable NKRO if needed
-#define NKRO_DEFAULT_ON false
-
-// DO NOT add #define FORCE_NKRO here
 
 // Reconfigure Command to use Left Ctrl + Right Ctrl (instead of both shifts)
 // This prevents conflict with BOTH_SHIFTS_TURNS_ON_CAPS_WORD
@@ -542,7 +507,7 @@
 
 // Transport Mirror - Mirror master matrix to slave
 // Useful for debugging, allows slave to "see" master keypresses
-#define SPLIT_TRANSPORT_MIRROR
+//#define SPLIT_TRANSPORT_MIRROR
 
 // ==================== SPLIT WATCHDOG & USB DETECTION ====================
 
@@ -572,14 +537,11 @@
 
 // ==================== RGB MATRIX CONFIGURATION ====================
 
-// USB Suspend - Disable RGB when USB is suspended (computer sleeps)
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
-
 // Reactive effects - Respond to keypresses and releases
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Enable framebuffer-based effects
                                        // (typing heatmap, etc.)
-#define RGB_MATRIX_KEYPRESSES          // Effects trigger on key press (default)
-#define RGB_MATRIX_KEYRELEASES         // Effects also trigger on key release
+// #define RGB_MATRIX_KEYPRESSES          // Effects trigger on key press (default)
+// #define RGB_MATRIX_KEYRELEASES         // Effects trigger on key release
 
 // Layer behavior - Allow layer to override RGB off state
 // When a layer has custom RGB, it overrides the "RGB off" setting
@@ -622,9 +584,8 @@
 // ==================== RGB MATRIX COLOR DEFAULTS ====================
 
 // Default RGB settings on boot
-#define RGB_MATRIX_DEFAULT_MODE                                                \
-  RGB_MATRIX_GRADIENT_UP_DOWN      // Boot with vertical gradient
-#define RGB_MATRIX_DEFAULT_ON true // RGB enabled on boot
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_GRADIENT_UP_DOWN      // Boot with vertical gradient
+// #define RGB_MATRIX_DEFAULT_ON true // RGB enabled on boot
 
 // ==================== RGB MATRIX + PALETTEFX CONFIGURATION
 // ====================
