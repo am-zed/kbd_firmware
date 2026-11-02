@@ -13,16 +13,54 @@
 // Track whether a sequence was matched (for feedback)
 static bool leader_sequence_matched = false;
 
+#ifdef RGB_MATRIX_ENABLE
+static uint8_t        saved_leader_mode;
+static HSV            saved_leader_hsv;
+static bool           saved_leader_enabled;
+static bool           leader_rgb_saved = false;
+#    ifdef DEFERRED_EXEC_ENABLE
+static deferred_token leader_reset_token = INVALID_DEFERRED_TOKEN;
+
+static uint32_t leader_reset_rgb_callback(uint32_t trigger_time, void *cb_arg) {
+    rgb_matrix_mode_noeeprom(saved_leader_mode);
+    rgb_matrix_sethsv_noeeprom(saved_leader_hsv.h, saved_leader_hsv.s, saved_leader_hsv.v);
+    if (!saved_leader_enabled) {
+        rgb_matrix_disable_noeeprom();
+    }
+    leader_rgb_saved   = false;
+    leader_reset_token = INVALID_DEFERRED_TOKEN;
+    return 0;
+}
+#    endif
+#endif
+
 // Called when Leader key is pressed
 void leader_start_user(void) {
     //dprintf("Leader Key: Started (waiting for sequence)\n");
     leader_sequence_matched = false;
 
     // Optional: Visual feedback (LED indicator)
-    #ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+#    ifdef DEFERRED_EXEC_ENABLE
+    if (leader_reset_token != INVALID_DEFERRED_TOKEN) {
+        cancel_deferred_exec(leader_reset_token);
+        leader_reset_token = INVALID_DEFERRED_TOKEN;
+    }
+#    endif
+
+    if (!leader_rgb_saved) {
+        saved_leader_mode    = rgb_matrix_get_mode();
+        saved_leader_hsv     = rgb_matrix_get_hsv();
+        saved_leader_enabled = rgb_matrix_is_enabled();
+        leader_rgb_saved     = true;
+    }
+
+    if (!saved_leader_enabled) {
+        rgb_matrix_enable_noeeprom();
+    }
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_sethsv_noeeprom(HSV_PURPLE);  // Purple = Leader active
-    #endif
+#endif
 }
 
 // Called when Leader sequence completes or times out
@@ -411,6 +449,9 @@ void leader_end_user(void) {
     // Leader + r + g + b = Toggle RGB
     else if (leader_sequence_three_keys(KC_R, KC_G, KC_B)) {
         rgb_matrix_toggle();
+#if defined(RGB_MATRIX_ENABLE)
+        saved_leader_enabled = !saved_leader_enabled;
+#endif
         leader_sequence_matched = true;
     }
 
@@ -520,26 +561,27 @@ void leader_end_user(void) {
 
     // ==================== END NOTIFICATION ====================
 
-    // Provide feedback on sequence completion
-    if (leader_sequence_matched) {
-        //dprintf("Leader Key: Sequence matched!\n");
-
-        // Visual feedback: Brief green flash
-        #ifdef RGB_MATRIX_ENABLE
+    // Provide visual feedback and restore previous RGB state
+#ifdef RGB_MATRIX_ENABLE
+    if (leader_rgb_saved) {
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-        rgb_matrix_sethsv_noeeprom(HSV_GREEN);
-        wait_ms(200);
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_GRADIENT_UP_DOWN);
-        #endif
-    } else {
-        //dprintf("Leader Key: No sequence matched (timed out or invalid)\n");
+        if (leader_sequence_matched) {
+            rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+        } else {
+            rgb_matrix_sethsv_noeeprom(HSV_RED);
+        }
 
-        // Visual feedback: Brief red flash
-        #ifdef RGB_MATRIX_ENABLE
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-        rgb_matrix_sethsv_noeeprom(HSV_RED);
+#    ifdef DEFERRED_EXEC_ENABLE
+        leader_reset_token = defer_exec(250, leader_reset_rgb_callback, NULL);
+#    else
         wait_ms(200);
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_GRADIENT_UP_DOWN);
-        #endif
+        rgb_matrix_mode_noeeprom(saved_leader_mode);
+        rgb_matrix_sethsv_noeeprom(saved_leader_hsv.h, saved_leader_hsv.s, saved_leader_hsv.v);
+        if (!saved_leader_enabled) {
+            rgb_matrix_disable_noeeprom();
+        }
+        leader_rgb_saved = false;
+#    endif
     }
+#endif
 }

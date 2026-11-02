@@ -82,18 +82,6 @@ static void send_box_round(void) {
     });
 }
 
-//void leader_end_user(void) {
-//    if (leader_sequence_one_key(KC_B)) {
-//        send_box();
-//    } else if (leader_sequence_two_keys(KC_B, KC_B)) {
-//        send_box_bold();
-//    } else if (leader_sequence_two_keys(KC_B, KC_D)) {
-//        send_box_double();
-//    } else if (leader_sequence_two_keys(KC_B, KC_R)) {
-//        send_box_round();
-//    }
-//}
-
 static void send_table(void) {
     const uint8_t w = 10;
 

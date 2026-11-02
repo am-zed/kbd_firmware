@@ -8,9 +8,6 @@
 // This allows using LAYOUT() instead of LAYOUT_split_3x6_3_ex2() in keymap.c
 #define LAYOUT LAYOUT_split_3x6_3_ex2
 
-// Disable audio features at compile time
-#define NO_MUSIC_MODE
-
 // #define MOD_MORPH_ENABLE
 
 // ==================== TRI-LAYER CONFIGURATION ====================
@@ -401,12 +398,6 @@
 //OK//#define DYNAMIC_KEYMAP_LAYER_COUNT 16
 //OK//#endif
 
-// Enable persistent default layer changing
-#define VIAL_ENABLE_LAYER_PERSISTENCE
-
-// Enable layer locking and unlocking features if supported
-#define VIAL_ENABLE_LAYER_LOCKING
-
 // ==================== MOUSE KEY CONFIGURATION ====================
 
 // Mouse cursor acceleration (default mode)
@@ -481,8 +472,8 @@
 #define DEBOUNCE 5
 
 // Master side designation
-// Left side is the master (USB connected to left half)
-// Right side connects to left via TRRS cable
+// Right side is the master (USB connected to left half)
+// Left side connects to left via TRRS cable
 #define MASTER_RIGHT
 
 // ==================== SPLIT SYNCHRONIZATION OPTIONS ====================
@@ -507,7 +498,7 @@
 
 // Transport Mirror - Mirror master matrix to slave
 // Useful for debugging, allows slave to "see" master keypresses
-//#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_TRANSPORT_MIRROR
 
 // ==================== SPLIT WATCHDOG & USB DETECTION ====================
 
@@ -540,7 +531,7 @@
 // Reactive effects - Respond to keypresses and releases
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS // Enable framebuffer-based effects
                                        // (typing heatmap, etc.)
-// #define RGB_MATRIX_KEYPRESSES          // Effects trigger on key press (default)
+#define RGB_MATRIX_KEYPRESSES          // Effects trigger on key press (default)
 // #define RGB_MATRIX_KEYRELEASES         // Effects trigger on key release
 
 // Layer behavior - Allow layer to override RGB off state

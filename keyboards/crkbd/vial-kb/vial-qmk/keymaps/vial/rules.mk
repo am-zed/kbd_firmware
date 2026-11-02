@@ -142,7 +142,6 @@ SPLIT_KEYBOARD     = yes
 
 # Disable OLED support (no OLED on this build - 2 extra keys instead)
 OLED_ENABLE        = no
-OLED_DRIVER        = none
 
 # RGB Lighting Configuration
 # Disable RGBLIGHT (underglow only)

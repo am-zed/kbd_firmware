@@ -6,7 +6,7 @@
 #pragma once
 
 #include "quantum.h"
-#include "matrix_pins.h"
+#include "corne42_leds.h"
 
 /**
  * @brief Set color for a specific LED if it's within the current range

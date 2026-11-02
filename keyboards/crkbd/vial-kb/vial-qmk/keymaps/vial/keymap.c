@@ -5,11 +5,9 @@
 #include "features/draw_boxes.h"
 #include "features/leader_key.h"
 #include "features/rgb_matrix.h"
-#include "features/shift_backspace.h"
-#include "process_unicode.h"
 
 static bool jiggle_enabled = false;
-static uint16_t jiggle_timer;
+static uint32_t jiggle_timer;
 static uint16_t jiggle_interval = 2000;
 static uint8_t jiggle_step = 0;
 
@@ -59,16 +57,6 @@ bool sentence_case_check_ending(const uint16_t *buffer) {
   return true; // Real sentence ending; capitalize next letter.
 }
 
-#ifdef CHORDAL_HOLD
-const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
-    LAYOUT(
-        'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 'R',
-        'L', 'L', 'L', 'L', 'L', 'L',            'R', 'R', 'R', 'R', 'R', 'R',
-                       'L', 'L', 'L',            'R', 'R', 'R'
-    );
-#endif
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool is_pressed    = record->event.pressed;
 
@@ -79,10 +67,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       leader_start(); // Manually start leader sequence
     }
     return false; // Skip further processing
-
-  // ----- Smart backspace -----
-  case KC_BSPC:
-    return handle_smart_backspace(record);
 
   // ----- Swap-hands controls -----
   case CK_SH_TOGG:
@@ -279,16 +263,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-//  case CK_MOUSE_JIGGLE:
-//    if (is_pressed) {
-//      jiggle_enabled = !jiggle_enabled;
-//      jiggle_timer = timer_read();
-//    }
-//    return false;
   case CK_MOUSE_JIGGLE:
     if (is_pressed) {
         jiggle_enabled = !jiggle_enabled;
-        jiggle_timer   = timer_read();
+        jiggle_timer   = timer_read32();
         jiggle_interval = 1000 + jiggle_rand(2001); // 1000-3000 ms
     }
     return false;
@@ -297,24 +275,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true; // Continue processing for other keys
 }
 
-//void matrix_scan_user(void) {
-//  if (jiggle_enabled && timer_elapsed(jiggle_timer) > 5000) {
-//    tap_code16(KC_MS_UP);   // move mouse up
-//    tap_code16(KC_MS_DOWN); // then down
-//    jiggle_timer = timer_read();
-//  }
-//}
-
 void matrix_scan_user(void) {
     if (jiggle_enabled && timer_elapsed(jiggle_timer) >= jiggle_interval) {
         switch (jiggle_step++ & 3) {
-            case 0: tap_code(KC_MS_UP);    break;
-            case 1: tap_code(KC_MS_RIGHT); break;
-            case 2: tap_code(KC_MS_DOWN);  break;
-            case 3: tap_code(KC_MS_LEFT);  break;
+            case 0: tap_code16(KC_MS_UP);    break;
+            case 1: tap_code16(KC_MS_RIGHT); break;
+            case 2: tap_code16(KC_MS_DOWN);  break;
+            case 3: tap_code16(KC_MS_LEFT);  break;
         }
 
-        jiggle_timer    = timer_read();
+        jiggle_timer    = timer_read32();
         jiggle_interval = 1000 + jiggle_rand(2001); // randomized 1-3 s
     }
 
@@ -322,5 +292,9 @@ void matrix_scan_user(void) {
 }
 
 char chordal_hold_handedness(keypos_t key) {
+    // Exempt thumb cluster rows (Row 3 on Left, Row 7 on Right)
+    if (key.row == 3 || key.row == 7) {
+        return '*';
+    }
     return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
 }
