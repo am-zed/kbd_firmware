@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Corne v4 mini",
     "maintainer": "foostan",
-    "manufacturer": "foostan",
+    "manufacturer": "keebart",
     "url": "https://github.com/foostan/crkbd",
     "usb": {
         "vid": "0x4653",
@@ -73,6 +73,7 @@
             "driver": "vendor"
         },
         "transport": {
+            "protocol": "serial",
             "sync": {
                 "matrix_state": true
             },
