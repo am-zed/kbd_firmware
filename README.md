@@ -1,442 +1,500 @@
-# Custom QMK/Vial Keyboard Firmware
+# Corne v4.1 (46-key) — QMK/Vial Firmware Documentation
 
-A feature-rich QMK firmware implementation with Vial support, featuring extensive customization options including leader key macros, Arabic Unicode support, RGB lighting effects, and advanced typing features.
+This repository contains a custom QMK/Vial firmware configuration for a split Corne Choc v4.1 keyboard (46 keys, RP2040, right-side master). It includes a Vial-compatible keymap, custom leader-key macros, Arabic Unicode support, swap-hands functions, RGB matrix indicators, sentence-case automation, and a collection of generated `.uf2` firmware snapshots for testing and flashing.
+
+**Board:** Corne Choc v4.1 · **MCU:** RP2040 (both halves) · **Keys:** 46 (23 per side)
+**Layout:** `LAYOUT_split_3x6_3_ex2` · **Communication:** Serial/TRRS
+
+---
 
 ## Table of Contents
 
-- [Features Overview](#features-overview)
-- [Layer Configuration](#layer-configuration)
-- [Leader Key Sequences](#leader-key-sequences)
-- [Custom Features](#custom-features)
-- [Arabic Unicode Support](#arabic-unicode-support)
-- [RGB Matrix Lighting](#rgb-matrix-lighting)
-- [Typing Enhancements](#typing-enhancements)
-- [Configuration Options](#configuration-options)
-- [Building and Flashing](#building-and-flashing)
+1. [File Structure](#file-structure)
+2. [Physical Layout](#physical-layout)
+3. [Layers](#layers)
+4. [Features](#features)
+   - [Leader Key](#leader-key)
+   - [Smart Backspace](#smart-backspace)
+   - [Arabic Input](#arabic-input)
+   - [Swap Hands](#swap-hands)
+   - [Sentence Case](#sentence-case)
+   - [Draw Boxes](#draw-boxes)
+   - [RGB Matrix](#rgb-matrix)
+   - [Mouse Jiggler](#mouse-jiggler)
+5. [Custom Keycodes](#custom-keycodes)
+6. [Key Timing Configuration](#key-timing-configuration)
+7. [Split Keyboard Configuration](#split-keyboard-configuration)
+8. [Unicode Configuration](#unicode-configuration)
+9. [Vial Configuration](#vial-configuration)
+10. [QMK Modules](#qmk-modules)
+11. [Build & Rules Summary](#build--rules-summary)
 
 ---
 
-## Features Overview
+## File Structure
 
-### Core Features
-- **Vial Support**: Real-time keymap configuration via Vial GUI
-- **8 Layers**: Base, Navigation, Function/RGB, Symbols, Mouse, Macros, ErgoArabic, RGB control
-- **Leader Key System**: Vim-inspired key sequences for complex macros
-- **Unicode Input**: Full Arabic alphabet with diacritics and special characters
-- **RGB Matrix**: Per-key RGB lighting with layer indicators
-- **Split Keyboard Support**: Full split keyboard configuration with hand detection
-- **Smart Typing Features**: Auto-shift, sentence case, smart backspace
-- **Swap Hands**: One-handed typing mirror mode
+```
+keymap.c                    — Main entry point; process_record_user, matrix_scan_user
+keymap.json                 — QMK modules declaration
+config.h                    — All compile-time feature configuration
+rules.mk                    — Feature enable/disable flags
+vial.json                   — Vial GUI layout definition and custom keycode names
+rgb_matrix_user.inc         — PaletteFx include hook
 
-### Advanced Features
-- Tri-layer activation
-- Dynamic macros (32 slots, 256 keystrokes)
-- Custom shift key behaviors
-- OS detection for cross-platform shortcuts
-- Tap-hold configurations
-- Caps Word mode
-- Layer lock functionality
-
----
-
-## Layer Configuration
-
-### Layer 0: Base Layer
-Default typing layer with standard QWERTY layout and home row modifiers.
-
-### Layer 1: Navigation Layer
-- **Indicator**: Right extra top LED (Cyan)
-- Arrow keys, Home, End, Page Up/Down
-- Text selection shortcuts
-
-### Layer 2: Function/RGB Layer
-- **Indicator**: Left extra top LED (Magenta)
-- Function keys (F1-F12)
-- RGB control keys
-- Media controls
-
-### Layer 3: Symbols Layer
-- **Indicator**: Both extra top LEDs (Orange)
-- Special characters and symbols
-- Programming-focused punctuation
-
-### Layer 4: Mouse Layer
-- **Indicator**: Right extra top LED (Chartreuse)
-- Mouse movement and buttons
-- Scroll wheel controls
-
-### Layer 5: Macros Layer
-- **Indicator**: Right extra bottom LED (Pink), macro keys highlighted in red
-- Pre-programmed macro shortcuts
-- Dynamic macro recording
-
-### Layer 6: ErgoArabic Layer
-- **Indicator**: Right extra bottom LED (Pink)
-- Full Arabic alphabet with shift variants
-- Arabic diacritics (Fatha, Damma, Kasra, Shadda, Sukun, Tanwin)
-- Arabic punctuation
-- Accessible via `Leader + A + R`
-
-### Layer 7: RGB Control Layer
-- **Indicator**: Left extra bottom LED (Blue)
-- Advanced RGB effects
-- Brightness and speed controls
+features/
+  kb_layout.h               — Keymap arrays for all layers + swap-hands config
+  custom_keycodes.h         — Enum of all custom keycode IDs
+  matrix_pins.h             — Named LED/pin constants for all 46 keys
+  leader_key.h              — Leader key sequence definitions
+  draw_boxes.h              — Unicode box-drawing macros
+  rgb_matrix.h              — Layer-based RGB indicator logic
+  shift_backspace.h         — Shift+Backspace → Delete remapping
+```
 
 ---
 
-## Leader Key Sequences
+## Physical Layout
 
-The leader key system uses Vim-style sequences for powerful macros. Press the Leader key (configured as `CK_LEADER`) followed by the sequence.
+```
+LEFT HALF                              RIGHT HALF
+─────────────────────────────────────────────────────────────────────
+L_TOP_0  L_TOP_1  L_TOP_2  L_TOP_3  L_TOP_4  L_TOP_5  [L_EX_TOP]   [R_EX_TOP]  R_TOP_0  R_TOP_1  R_TOP_2  R_TOP_3  R_TOP_4  R_TOP_5
+L_HOME_0 L_HOME_1 L_HOME_2 L_HOME_3 L_HOME_4 L_HOME_5 [L_EX_BOT]   [R_EX_BOT]  R_HOME_0 R_HOME_1 R_HOME_2 R_HOME_3 R_HOME_4 R_HOME_5
+L_BOT_0  L_BOT_1  L_BOT_2  L_BOT_3  L_BOT_4  L_BOT_5                           R_BOT_0  R_BOT_1  R_BOT_2  R_BOT_3  R_BOT_4  R_BOT_5
+                            L_THUMB_0 L_THUMB_1 L_THUMB_2           R_THUMB_0 R_THUMB_1 R_THUMB_2
+```
 
-### Visual Feedback
-- **Purple LED**: Leader sequence active, waiting for input
-- **Green flash**: Sequence successfully matched
-- **Red flash**: Invalid sequence or timeout
-
-### One-Key Sequences
-
-#### File Operations
-- `Leader + W` → Save (Ctrl+S / Cmd+S)
-- `Leader + Q` → Quit (Alt+F4 / Cmd+Q)
-
-#### Edit Operations
-- `Leader + U` → Undo (Ctrl+Z / Cmd+Z)
-- `Leader + R` → Redo (Ctrl+Y / Cmd+Shift+Z)
-- `Leader + P` → Paste (Ctrl+V / Cmd+V)
-
-#### Search & Navigation
-- `Leader + /` → Search (Ctrl+F / Cmd+F)
-- `Leader + N` → Find Next (F3 / Cmd+G)
-- `Leader + Shift+N` → Find Previous (Shift+F3 / Cmd+Shift+G)
-- `Leader + 0` → Go to beginning of line (Home)
-- `Leader + $` → Go to end of line (End)
-
-#### System
-- `Leader + B` → Enter bootloader mode (for flashing firmware)
-
-### Two-Key Sequences
-
-#### Layer Control
-- `Leader + A + R` → Activate ErgoArabic layer (Layer 6)
-
-#### File Operations
-- `Leader + W + Q` → Save and Quit
-- `Leader + W + A` → Save All (Ctrl+Shift+S / Cmd+Shift+S)
-
-#### Line Operations (Vim-style)
-- `Leader + D + D` → Delete current line
-- `Leader + Y + Y` → Yank (copy) current line
-- `Leader + D + U` → Duplicate current line
-- `Leader + D + W` → Delete current word
-
-#### Navigation
-- `Leader + G + G` → Go to top of file (Ctrl+Home / Cmd+Up)
-
-#### Selection & Deletion
-- `Leader + G + D` → Select All and Delete (clear field)
-- `Leader + G + Y` → Select All and Copy
-
-#### Screenshots
-- `Leader + S + S` → Screenshot (full screen)
-- `Leader + S + W` → Screenshot active window (OS-specific)
-
-### Three-Key Sequences
-- `Leader + D + D + S` → Type DuckDuckGo URL
-- `Leader + R + G + B` → Toggle RGB lighting
-
-### Configuration
-- **Timeout**: 800-1000ms (configurable via `LEADER_TIMEOUT`)
-- **Per-key timing**: Each key in sequence resets the timeout
-- **Strict processing**: Only defined sequences are processed
+- `[L_EX_TOP/BOT]` and `[R_EX_TOP/BOT]` are the 4 middle "extra" keys (encoders/switches).
+- Named constants are defined in `features/matrix_pins.h` and map to physical LED numbers (0–45).
 
 ---
 
-## Custom Features
+## Layers
+
+| Index | Name      | Activation           | Description                        |
+|-------|-----------|----------------------|------------------------------------|
+| 0     | `_BASE`   | Default              | QWERTY with standard modifiers     |
+| 1     | `_LOWER`  | Hold `TL_LOWR`       | Numbers (top row) + arrow keys     |
+| 2     | `_UPPER`  | Hold `TL_UPPR`       | Symbols, brackets, punctuation     |
+| 3     | `_ADJUST` | Hold `_LOWER+_UPPER` | RGB controls + QK_BOOT (flash)     |
+
+Tri-layer is handled by `TRI_LAYER_ENABLE` with `TL_LOWR`/`TL_UPPR` keycodes.
+
+### Base Layer (0)
+```
+TAB   Q  W  E  R  T  [LCTL]     [RCTL]  Y  U  I  O  P   BSPC
+LCTL  A  S  D  F  G  [LALT]     [RALT]  H  J  K  L  ;   '
+LSFT  Z  X  C  V  B                     N  M  ,  .  /   ESC
+          LGUI  TL_UPPR  ENT     SPC  TL_LOWR  QK_KB_0(Leader)
+```
+
+### Lower Layer (1)
+```
+TAB   1  2  3  4  5  [LCTL]     [RCTL]  6    7     8   9     0    BSPC
+LCTL  -  -  -  -  -  [LALT]     [RALT]  LEFT DOWN  UP  RIGHT -    -
+LSFT  -  -  -  -  -                     -    -     -   -     -    -
+          LGUI  ___  ENT          SPC  ___  LALT
+```
+
+### Upper Layer (2)
+```
+TAB   !  @  #  $  %  [LCTL]     [RCTL]  ^  &  *  (  )   BSPC
+LCTL  -  -  -  -  -  [LALT]     [RALT]  -  =  [  ]  \   `
+LSFT  -  -  -  -  -                     _  +  {  }  |   ~
+          LGUI  ___  ENT          SPC  ___  LALT
+```
+
+### Adjust Layer (3)
+```
+QK_BOOT  -  -  -  -  -  -     -  -  -  -  -  -  -
+RGB_TOG  RGB_HUI  RGB_SAI  RGB_VAI  -  -  -     -  -  -  -  -  -  -
+RGB_MOD  RGB_HUD  RGB_SAD  RGB_VAD  -  -              -  -  -  -  -  -
+              LGUI  ___  ENT          SPC  ___  LALT
+```
+
+---
+
+## Features
+
+### Leader Key
+
+**File:** `features/leader_key.h`
+**Activation:** `QK_KB_0` (right thumb key, base layer)
+**Timeout:** 800ms total; per-key timing resets on each keypress.
+**Visual feedback:** RGB → purple while active, green on match, red on miss.
+
+#### One-Key Sequences
+
+| Sequence | Action |
+|----------|--------|
+| `W` | Save (Ctrl+S / Cmd+S) |
+| `Q` | Quit (Alt+F4 / Cmd+Q) |
+| `U` | Undo (Ctrl+Z / Cmd+Z) |
+| `R` | Redo (Ctrl+Y / Cmd+Shift+Z) |
+| `P` | Paste (Ctrl+V / Cmd+V) |
+| `/` | Find (Ctrl+F / Cmd+F) |
+| `N` | Find Next (F3 / Cmd+G) |
+| `0` | Home (beginning of line) |
+| `$` | End (end of line) |
+| `B` | Draw thin box (Unicode) |
+| `Shift+N` | Find Previous (Shift+F3 / Cmd+Shift+G) |
+
+#### Two-Key Sequences
+
+| Sequence | Action |
+|----------|--------|
+| `W` `Q` | Save then Quit |
+| `W` `A` | Save All (Ctrl+Shift+S / Cmd+Shift+S) |
+| `D` `D` | Delete line (Home → Shift+End → Backspace) |
+| `Y` `Y` | Yank (copy) line |
+| `G` `G` | Go to top of file (Ctrl+Home / Cmd+Up) |
+| `D` `W` | Delete current word |
+| `D` `U` | Duplicate current line |
+| `G` `D` | Select All + Delete (clear field) |
+| `G` `Y` | Select All + Copy |
+| `S` `S` | Screenshot (Print Screen) |
+| `S` `W` | Screenshot active window (OS-aware) |
+| `A` `R` | Switch to ErgoArabic layer (layer 6) |
+| `B` `B` | Draw bold box |
+| `B` `D` | Draw double-line box |
+| `B` `R` | Draw rounded-corner box |
+| `B` `T` | Draw 2-column table with header separator |
+
+#### Three-Key Sequences
+
+| Sequence | Action |
+|----------|--------|
+| `D` `D` `S` | Type `https://start.duckduckgo.com` + Enter |
+| `R` `G` `B` | Toggle RGB matrix |
+
+> All sequences with application shortcuts are OS-aware via `OS_DETECTION_ENABLE`.
+
+---
 
 ### Smart Backspace
-Enhanced backspace behavior with context-aware deletion:
-- Deletes matching brackets/quotes automatically
-- Handles whitespace intelligently
-- Configured in `shift_backspace.h`
+
+**File:** `features/shift_backspace.h`
+
+Overrides `KC_BSPC`:
+
+| Input | Output |
+|-------|--------|
+| `Backspace` | Normal backspace |
+| `Shift + Backspace` | Forward delete (`KC_DEL`) |
+
+Works with one-shot shifts and home row mods. Shift is suppressed for a plain `Delete` (i.e., not `Shift+Delete`) unless both shifts are held simultaneously.
+
+---
+
+### Arabic Input
+
+**File:** `keymap.c` (cases), `features/custom_keycodes.h` (enum)
+**Layer:** ErgoArabic (layer 6, activated via `Leader + A + R`)
+**Method:** QMK `register_unicode()` with `send_unicode_no_shift()` wrapper to avoid shift contamination.
+
+#### Letter Keycodes
+
+Each Arabic letter keycode (`CK_AR_*`) sends a Unicode codepoint. Many have a shifted variant:
+
+| Keycode | Base | Shifted |
+|---------|------|---------|
+| `CK_AR_ALEF` | ا (0627) | أ (0623) |
+| `CK_AR_BEH` | ب (0628) | ً (064B) tanwin fath |
+| `CK_AR_TEH` | ت (062A) | ـ (0640) tatweel |
+| `CK_AR_THEH` | ث (062B) | ُ (064F) damma |
+| `CK_AR_JEEM` | ج (062C) | ڨ (06A8) |
+| `CK_AR_DAL` | د (062F) | ذ (0630) |
+| `CK_AR_REH` | ر (0631) | ز (0632) |
+| `CK_AR_SEEN` | س (0633) | ٍ (064D) tanwin kasr |
+| `CK_AR_SHEEN` | ش (0634) | ِ (0650) kasra |
+| `CK_AR_SAD` | ص (0635) | ض (0636) |
+| `CK_AR_TAH` | ط (0637) | ظ (0638) |
+| `CK_AR_AIN` | ع (0639) | غ (063A) |
+| `CK_AR_FEH` | ف (0641) | ّ (0651) shadda |
+| `CK_AR_QAF` | ق (0642) | ٌ (064C) tanwin damm |
+| `CK_AR_KAF` | ك (0643) | `:` (003A) |
+| `CK_AR_LAM` | ل (0644) | آ (0622) |
+| `CK_AR_WAW` | و (0648) | ؤ (0624) |
+| `CK_AR_TEH_MARBUTA` | ة (0629) | ؛ (061B) |
+| `CK_AR_HAMZA` | ء (0621) | إ (0625) |
+| `CK_AR_YEH` | ي (064A) | َ (064E) fatha |
+| `CK_AR_ALEF_MAKSURA` | ى (0649) | ْ (0652) sukun |
+
+#### Diacritics & Standalone Marks
+
+| Keycode | Character | Unicode |
+|---------|-----------|---------|
+| `CK_AR_FATHA` | َ | 064E |
+| `CK_AR_DAMMA` | ُ | 064F |
+| `CK_AR_KASRA` | ِ | 0650 |
+| `CK_AR_SHADDA` | ّ | 0651 |
+| `CK_AR_SUKUN` | ْ | 0652 |
+| `CK_AR_FATHATAN` | ً | 064B |
+| `CK_AR_DAMMATAN` | ٌ | 064C |
+| `CK_AR_KASRATAN` | ٍ | 064D |
+| `CK_AR_TATWEEL` | ـ | 0640 |
+
+#### Punctuation
+
+| Keycode | Character | Unicode |
+|---------|-----------|---------|
+| `CK_AR_COMMA` | ، | 060C |
+| `CK_AR_SEMICOLON` | ؛ | 061B |
+| `CK_AR_QUESTION` | ؟ | 061F |
+
+---
 
 ### Swap Hands
-Mirror the keyboard for one-handed typing:
-- `CK_SH_TOGG` - Toggle swap hands on/off
-- `CK_SH_MON` - Momentary swap while held
-- `CK_SH_TT` - Tap 5 times to lock, hold for momentary
-- `CK_SH_OS` - One-shot swap for next key only
-- `CK_SH_ON` / `CK_SH_OFF` - Explicit on/off controls
+
+**File:** `features/kb_layout.h` (swap config), `keymap.c` (keycodes)
+**Purpose:** Mirror left/right halves for one-handed typing.
+
+`hand_swap_config` maps each physical key to its mirror. Control/extra/thumb keys map to themselves; only the 12 main keys per row are swapped.
+
+| Keycode | Behavior |
+|---------|----------|
+| `CK_SH_TOGG` | Toggle swap on/off persistently |
+| `CK_SH_MON` | Momentary: swap while held |
+| `CK_SH_ON` | Force swap on |
+| `CK_SH_OFF` | Force swap off |
+| `CK_SH_TT` | Tap 5× to toggle; hold for momentary |
+| `CK_SH_OS` | One-shot: swap for next keypress only |
+
+---
 
 ### Sentence Case
-Automatically capitalize the first letter of sentences:
-- `CK_SENTENCE_CASE_ON` - Enable sentence case
-- `CK_SENTENCE_CASE_OFF` - Disable sentence case
-- `CK_SENTENCE_CASE_TOGGLE` - Toggle on/off
-- Timeout: 5 seconds of inactivity
-- Buffer size: 8 keys for abbreviation detection
 
-### Caps Word
-Type a word in all caps, then automatically return to lowercase:
-- **Activation**: Press both shift keys simultaneously
-- **Auto-disable**: After 5 seconds of inactivity or when typing spaces/punctuation
-- Continues through numbers and underscores
+**Module:** `getreuer/sentence_case` (via `keymap.json`)
+**Keycodes:** `CK_SENTENCE_CASE_ON`, `CK_SENTENCE_CASE_OFF`, `CK_SENTENCE_CASE_TOGGLE`
 
----
+Automatically capitalizes the first letter after a sentence-ending `.`, `!`, or `?` followed by a space.
 
-## Arabic Unicode Support
+**Custom endings** (defined in `keymap.c`): The abbreviations `vs.`, `etc.`, and `...` are excluded from triggering capitalization.
 
-### Full Arabic Alphabet
-The ErgoArabic layer (Layer 6) provides complete Arabic typing support with shift variants for efficient input.
-
-#### Base Letters (Unshifted)
-ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ة ء ي ئ ى
-
-#### Shifted Variants
-Many letters have diacritics or alternate forms when shifted:
-- `Shift + ا` → أ (Alef with Hamza above)
-- `Shift + ب` → ً (Fathatan)
-- `Shift + ي` → َ (Fatha)
-- `Shift + ل` → آ (Alef with Madda)
-
-### Arabic Diacritics
-- **Fatha** (َ) - Short "a" sound
-- **Damma** (ُ) - Short "u" sound  
-- **Kasra** (ِ) - Short "i" sound
-- **Shadda** (ّ) - Consonant doubling
-- **Sukun** (ْ) - Vowel absence
-- **Tanwin**: Fathatan (ً), Dammatan (ٌ), Kasratan (ٍ)
-- **Tatweel** (ـ) - Kashida/elongation
-
-### Arabic Punctuation
-- **Comma** (،) - Arabic comma
-- **Semicolon** (؛) - Arabic semicolon
-- **Question Mark** (؟) - Arabic question mark
-
-### Unicode Mode Configuration
-Select the appropriate Unicode input mode for your OS:
-- `CK_UNI_LINUX` - Linux (Ctrl+Shift+U method)
-- `CK_UNI_WINDOWS` - Windows (Alt+numpad method)
-- `CK_UNI_WINCOMPOSE` - Windows with WinCompose
-- Auto-detection enabled via OS detection feature
-
-Supported modes can be cycled: Linux, Windows, WinCompose, macOS
+Config:
+- `SENTENCE_CASE_TIMEOUT`: 5000ms idle reset
+- `SENTENCE_CASE_BUFFER_SIZE`: 8 keys (for abbreviation detection)
 
 ---
 
-## RGB Matrix Lighting
+### Draw Boxes
 
-### Layer Indicators
-Specific LEDs illuminate to show the active layer:
-- **Caps Lock**: Left extra bottom LED (White)
-- **Layer 1 (Navigation)**: Right extra top LED (Cyan)
-- **Layer 2 (Function/RGB)**: Left extra top LED (Magenta)
-- **Layer 3 (Symbols)**: Both extra top LEDs (Orange)
-- **Layer 4 (Mouse)**: Right extra top LED (Chartreuse)
-- **Layer 5 (Macros)**: Right extra bottom LED (Pink), macro keys in red
-- **Layer 6 (ErgoArabic)**: Right extra bottom LED (Pink)
-- **Layer 7 (RGB)**: Left extra bottom LED (Blue)
+**File:** `features/draw_boxes.h`
+**Activation:** Leader key sequences (see Leader Key section)
 
-### RGB Effects
-- **Default Mode**: Gradient Up/Down
-- **Reactive Effects**: Lighting responds to keypresses
-- **Framebuffer Effects**: Typing heatmap and trails
-- **Performance**: 60 FPS animation, 10 LEDs per frame
-- **Auto-off**: After 5 minutes of inactivity
-- **USB Suspend**: RGB disabled when computer sleeps
+All boxes are 10 characters wide. Triggered via `send_box_style()` which types the frame using `register_unicode()` + `KC_ENT`/`KC_SPC`.
 
-### LED Configuration
-- **Total LEDs**: 46 (23 per side for split keyboard)
-- **Default Brightness**: 128/255
-- **Maximum Brightness**: 200/255 (power saving)
-
-### RGB Control
-- Enable/disable RGB when USB suspended
-- Layer-specific RGB overrides default settings
-- Keypress and key release triggers
+| Style | Characters used |
+|-------|----------------|
+| Thin (`send_box`) | `─ │ ┌ ┐ └ ┘` |
+| Bold (`send_box_bold`) | `━ ┃ ┏ ┓ ┗ ┛` |
+| Double (`send_box_double`) | `═ ║ ╔ ╗ ╚ ╝` |
+| Round (`send_box_round`) | `─ │ ╭ ╮ ╰ ╯` |
+| Table (`send_table`) | Mixed; 3-row 2-column with double-line header separator |
 
 ---
 
-## Typing Enhancements
+### RGB Matrix
 
-### Auto Shift
-Hold a key longer to type the shifted character automatically.
-- **Timeout**: 175ms (configurable)
-- **Excluded**: Special characters and numbers (no auto-shift)
-- **No Auto Repeat**: Prevents unwanted character spam
+**File:** `features/rgb_matrix.h`
+**LED count:** 46 (23 per side, defined in `config.h`)
 
-### Tapping Configuration
-Fine-tuned tap-hold behavior for dual-function keys:
-- **Tapping Term**: 200ms to distinguish tap from hold
-- **Permissive Hold**: Trigger hold if another key pressed during tapping
-- **Quick Tap Term**: 120ms for rapid key repeat
-- **Retro Tapping**: Send tap on release if no other key pressed
+#### Layer Indicators
 
-### Flow Tap
-Disables hold functionality during fast typing sequences:
-- **Flow Tap Term**: 150ms window
-- Prevents accidental modifiers when typing quickly
-- Ideal for home row mods
+`rgb_matrix_indicators_advanced_user()` runs every frame and sets specific LEDs per active layer:
 
-### Chordal Hold
-Opposite-hands rule for tap-hold keys:
-- **Same hand keys**: Tap (prevent accidental mod)
-- **Opposite hand keys**: Hold (intentional modifier)
-- Prevents accidental capitals with home row mods
+| Layer | LED | Color |
+|-------|-----|-------|
+| Caps Lock (any layer) | `L_EX_BOT` (22) | White |
+| 0 (Base) | — | Default effects |
+| 1 (Lower/Nav) | `R_EX_TOP` (44) | Cyan |
+| 2 (Upper/Symbols) | `L_EX_TOP` (21) | Magenta |
+| 3 (Adjust) | `L_EX_TOP` + `R_EX_TOP` | Orange |
+| 4 (Mouse) | `R_EX_TOP` (44) | Chartreuse |
+| 5 (Macros) | `R_EX_BOT` (45) + macro keys | Pink + Red |
+| 6 (ErgoArabic) | `R_EX_BOT` (45) | Pink |
+| 7 (RGB) | `L_EX_BOT` (22) | Blue |
 
----
+The function returns `false` to allow other RGB effects to continue rendering underneath.
 
-## Configuration Options
+#### Effects Enabled
 
-### Tri-Layer
-Automatically activate a third layer when two layers are held:
-- **Lower Layer**: 1 (Navigation)
-- **Upper Layer**: 2 (Function/RGB)
-- **Adjust Layer**: 3 (Symbols) - activated when both held
+All standard QMK RGB Matrix effects are enabled (`ENABLE_RGB_MATRIX_*`), including reactive, gradient, heatmap, digital rain, and splash effects. PaletteFx effects are also fully enabled via `PALETTEFX_ENABLE_ALL_EFFECTS` and `PALETTEFX_ENABLE_ALL_PALETTES`.
 
-### Dynamic Macros
-Record and playback custom keystroke sequences:
-- **Macro Slots**: 32 available
-- **Buffer Size**: 256 keystrokes total
-- **Playback Delay**: 10-20ms between keystrokes
-- Record via Vial GUI or on-the-fly
-
-### Split Keyboard Settings
-- **Communication**: Serial over TRRS cable
-- **Serial Pin**: GP12 (UART0 TX)
-- **Handedness Detection**: Pin-based (GP21)
-- **Master Side**: Left (USB connects to left half)
-- **Synchronization**: Layer state, modifiers, LEDs, activity
-- **Watchdog**: Auto-reboot slave after 3s timeout
-- **USB Detection**: Active USB communication detection
-
-### NKRO (N-Key Rollover)
-- **Boot Mode**: 6-Key Rollover (6KRO) for maximum compatibility
-- **Toggle**: Use `NK_TOGG` keycode to enable NKRO when needed
-- **Persistence**: NKRO state saved across reboots
-
-### One-Shot Keys
-Press modifier once, then press another key - modifier applies then releases:
-- **Timeout**: 5 seconds
-- **Tap-Toggle**: Tap 5 times to lock modifier
-- Works with Shift, Ctrl, Alt, GUI
-
-### Layer Lock
-Lock a layer active without holding the layer key:
-- **Idle Timeout**: 5 seconds of inactivity auto-unlocks
-- Useful for extended work in a specific layer
+**Defaults on boot:**
+- Mode: `RGB_MATRIX_GRADIENT_UP_DOWN`
+- Speed: 127
+- RGB on: true
+- Auto-off: 5 minutes (`RGB_MATRIX_TIMEOUT 300000`)
 
 ---
 
-## Building and Flashing
+### Mouse Jiggler
 
-### Prerequisites
-- QMK Firmware environment
-- Vial enabled in build
-- RP2040-based keyboard controller
+**Keycode:** `CK_MOUSE_JIGGLE`
+**Behavior:** Toggles a background jiggler. Every 5 seconds, moves the mouse cursor up then down by one unit. Prevents screen lock/sleep without being visible during normal use.
 
-### Build Command
+Implementation uses `matrix_scan_user()` with `timer_elapsed()`.
+
+---
+
+## Custom Keycodes
+
+All custom keycodes are defined in `features/custom_keycodes.h`, starting from `QK_KB_0`.
+
+| Range | Purpose |
+|-------|---------|
+| `CK_LEADER` | Leader key trigger |
+| `CK_SH_*` (6 codes) | Swap hands controls |
+| `CK_SENTENCE_CASE_*` (3 codes) | Sentence case controls |
+| `CK_AR_ALEF` … `CK_AR_ALEF_HAMZA_BLW` (35 codes) | Arabic letters |
+| `CK_AR_FATHA` … `CK_AR_TATWEEL` (9 codes) | Arabic diacritics |
+| `CK_AR_COMMA` … `CK_AR_WAW_HAMZA` (4 codes) | Arabic punctuation |
+| `CK_UNI_LINUX/WINDOWS/WINCOMPOSE` | Force Unicode input mode |
+| `CK_MOUSE_JIGGLE` | Toggle mouse jiggler |
+
+Total: `CUSTOM_KEYCODE_COUNT` entries.
+
+The `vial.json` `customKeycodes` array mirrors this enum order so Vial GUI displays correct names and short labels.
+
+---
+
+## Key Timing Configuration
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| `TAPPING_TERM` | 140ms | Tap vs. hold threshold |
+| `QUICK_TAP_TERM` | 100ms | Double-tap-to-hold suppression |
+| `RETRO_TAPPING` | enabled | Tap fires on solo hold release |
+| `SPECULATIVE_HOLD` | enabled | Improves hold detection latency |
+| `CHORDAL_HOLD` | enabled | Same-hand = tap, opposite-hand = hold |
+| `ONESHOT_TIMEOUT` | 5000ms | One-shot key expires after 5s |
+| `ONESHOT_TAP_TOGGLE` | 5 | Tap 5× to lock one-shot |
+| `LEADER_TIMEOUT` | 800ms | Per-key timeout for leader sequences |
+| `CAPS_WORD_IDLE_TIMEOUT` | 5000ms | Caps Word auto-off |
+| `LAYER_LOCK_IDLE_TIMEOUT` | 5000ms | Layer Lock auto-release |
+| `DEBOUNCE` | 5ms | Switch debounce |
+
+**Chordal Hold** uses `CHORDAL_HOLD_LAYOUT` macro in `config.h` to manually assign `'L'`/`'R'` handedness to every key position, and `chordal_hold_handedness()` in `keymap.c` to handle any remaining keys by matrix row.
+
+---
+
+## Split Keyboard Configuration
+
+| Setting | Value |
+|---------|-------|
+| Master side | Right (`MASTER_RIGHT`) |
+| Communication | Serial/TRRS |
+| USB detection | `SPLIT_USB_DETECT`, 2000ms timeout |
+| Watchdog timeout | 3000ms (reboot slave on lost comms) |
+| Synced state | Layer, mods, LED state, activity, transport mirror |
+
+---
+
+## Unicode Configuration
+
+| Setting | Value |
+|---------|-------|
+| `UNICODE_SELECTED_MODES` | Linux, Windows, WinCompose, macOS |
+| `UNICODE_CYCLE_PERSIST` | false (resets to first mode on reboot) |
+| `UNICODE_TYPE_DELAY` | 10ms between keystrokes |
+
+OS detection (`OS_DETECTION_ENABLE`) auto-sets the initial Unicode mode on connection.
+
+Force-set at runtime with:
+- `CK_UNI_LINUX` → `UNICODE_MODE_LINUX`
+- `CK_UNI_WINDOWS` → `UNICODE_MODE_WINDOWS`
+- `CK_UNI_WINCOMPOSE` → `UNICODE_MODE_WINCOMPOSE`
+
+---
+
+## Vial Configuration
+
+**File:** `vial.json`
+
+- **UID:** `{0x89, 0x36, 0x2A, 0xC7, 0xFA, 0xD8, 0x89, 0x45}`
+- **Unlock combo:** Row 0, cols 0+1 (top-left two keys)
+- **Matrix:** 8 rows × 7 cols
+- **Lighting:** `vialrgb`
+- **Dynamic features** (from `config.h`):
+
+| Feature | Slots |
+|---------|-------|
+| Combos | 32 |
+| Tap Dance | 32 |
+| Key Overrides | 32 |
+| Alt Repeat Key | 32 |
+| Macros | 32 |
+| Layers | 16 |
+
+The `layouts.labels` array defines 4 encoder/switch variant groups for the extra keys.
+
+---
+
+## QMK Modules
+
+Declared in `keymap.json`:
+
+| Module | Purpose |
+|--------|---------|
+| `getreuer/palettefx` | Extended RGB palette cycling (included via `rgb_matrix_user.inc`) |
+| `getreuer/sentence_case` | Auto-capitalize sentence starts |
+| `srwi/keypeek_layer_notify` | Visual layer change notifications |
+
+---
+
+## Build & Rules Summary
+
+Key flags from `rules.mk`:
+
+| Flag | State |
+|------|-------|
+| `VIAL_ENABLE` | yes |
+| `SPLIT_KEYBOARD` | yes |
+| `RGB_MATRIX_ENABLE` | yes |
+| `UNICODE_ENABLE` | yes |
+| `LEADER_ENABLE` | yes |
+| `SWAP_HANDS_ENABLE` | yes |
+| `AUTO_SHIFT_ENABLE` | yes |
+| `TRI_LAYER_ENABLE` | yes |
+| `CAPS_WORD_ENABLE` | yes |
+| `LAYER_LOCK_ENABLE` | yes |
+| `KEY_LOCK_ENABLE` | yes |
+| `MOUSEKEY_ENABLE` | yes |
+| `NKRO_ENABLE` | yes (boots in 6KRO; toggle with `NK_TOGG`) |
+| `OS_DETECTION_ENABLE` | yes |
+| `DYNAMIC_MACRO_ENABLE` | yes |
+| `CONSOLE_ENABLE` | no |
+| `LTO_ENABLE` | no |
+| `AUDIO_ENABLE` | no |
+| `OLED_ENABLE` | no |
+
+---
+
+## Build and Flash
+
+This repository includes a `Makefile` that wires the custom Vial QMK build tree and copies generated firmware artifacts into the project root.
+
+### Local build
+
 ```bash
-qmk compile -kb <your_keyboard> -km vial
+make vial-qmk-init
+make vial-qmk-compile
 ```
 
-### Flash Command
+### Full rebuild
+
 ```bash
-qmk flash -kb <your_keyboard> -km vial
+make update-all
 ```
 
-### Bootloader Entry
-- **Via Keymap**: Press `Leader + B`
-- **Physical**: Short BOOT and GND pins while plugging in USB
-- **Via Vial**: Use "Reboot to Bootloader" option in Vial GUI
+### Flashing
 
-### Files Structure
-```
-.
-├── config.h              # Main configuration file
-├── rules.mk              # Build options and features
-├── keymap.c              # Keymap and process_record_user
-├── keymap.json           # Base keymap definition
-├── vial.json             # Vial GUI configuration
-│
-├── features/
-│   ├── leader_key.h      # Leader key sequences
-│   ├── shift_backspace.h # Smart backspace logic
-│   ├── custom_keycodes.h # Custom keycode definitions
-│   ├── rgb_matrix.h      # RGB layer indicators
-│   ├── kb_layout.h       # Keyboard layout definition
-│   └── matrix_pins.h     # Pin assignments
+```bash
+make vial-qmk-flash kb=crkbd kr=rev4_1/standard km=vial
 ```
 
----
-
-## Customization
-
-### Adding Leader Key Sequences
-Edit `leader_key.h` and add new sequences in the `leader_end_user()` function:
-
-```c
-// Example: Leader + M + Y = Type "my text"
-else if (leader_sequence_two_keys(KC_M, KC_Y)) {
-    SEND_STRING("my text");
-    leader_sequence_matched = true;
-}
-```
-
-### Modifying RGB Indicators
-Edit `rgb_matrix.h` to change LED colors for layers:
-
-```c
-case 1: // Navigation Layer
-    set_led_color_if_in_range(LED_INDEX, led_min, led_max, RGB_CYAN);
-    break;
-```
-
-### Adjusting Timeouts
-Modify timing values in `config.h`:
-- `LEADER_TIMEOUT` - Leader key sequence timeout
-- `TAPPING_TERM` - Tap vs hold distinction
-- `AUTO_SHIFT_TIMEOUT` - Auto-shift delay
-- `CAPS_WORD_IDLE_TIMEOUT` - Caps Word auto-disable
-
-### Unicode Input
-Add custom Unicode characters in `keymap.c`:
-
-```c
-case MY_CUSTOM_CHAR:
-    if (record->event.pressed) register_unicode(0x1F600); // 😀
-    return false;
-```
-
----
-
-## Troubleshooting
-
-### Arabic Characters Not Typing
-1. Ensure correct Unicode mode is set for your OS
-2. On Linux: `CK_UNI_LINUX` (Ctrl+Shift+U method)
-3. On Windows: `CK_UNI_WINCOMPOSE` (requires WinCompose installed)
-4. Try increasing `UNICODE_TYPE_DELAY` in config.h
-
-### Leader Key Timeout Too Short
-Increase `LEADER_TIMEOUT` in config.h (default: 800-1000ms)
-
-### Split Keyboard Not Communicating
-1. Check TRRS cable connection
-2. Verify `SOFT_SERIAL_PIN` matches your wiring
-3. Ensure both halves have correct handedness detection
-4. Check `SPLIT_HAND_PIN` is correctly configured
-
-### RGB Not Working
-1. Verify `RGB_MATRIX_ENABLE` in rules.mk
-2. Check LED count matches your hardware (46 total, 23 per side)
-3. Ensure adequate USB power for LEDs
-4. Try reducing `RGB_MATRIX_MAXIMUM_BRIGHTNESS`
-
-### Accidental Modifier Triggers
-Fine-tune tap-hold settings:
-1. Increase `TAPPING_TERM` for more deliberate holds
-2. Enable `FLOW_TAP` to prevent holds during fast typing
-3. Adjust `FLOW_TAP_TERM` for your typing speed
+The generated UF2 files in the repo root are timestamped snapshots of successful builds and can be copied onto the keyboard's RP2040 mass-storage device.
 
 ---
 
