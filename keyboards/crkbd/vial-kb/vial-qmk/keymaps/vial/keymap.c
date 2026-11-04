@@ -10,6 +10,7 @@ static bool jiggle_enabled = false;
 static uint32_t jiggle_timer;
 static uint16_t jiggle_interval = 2000;
 static uint8_t jiggle_step = 0;
+static bool dynamic_macro_playback_feedback;
 
 static uint16_t jiggle_rand(uint16_t range) {
     static uint16_t seed = 0xACE1;
@@ -55,6 +56,34 @@ bool sentence_case_check_ending(const uint16_t *buffer) {
     return false; // Not a real sentence ending.
   }
   return true; // Real sentence ending; capitalize next letter.
+}
+
+bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Playback is synchronous, so start feedback before QMK enters its playback loop.
+  if (!record->event.pressed && (keycode == QK_DYNAMIC_MACRO_PLAY_1 || keycode == QK_DYNAMIC_MACRO_PLAY_2)) {
+    dynamic_macro_playback_feedback = true;
+    rgb_matrix_blink_led_with_color(L_EX_TOP, true, 0, 255, 0);
+  }
+  return true;
+}
+
+bool dynamic_macro_record_start_user(int8_t direction) {
+  (void)direction;
+  rgb_matrix_blink_led_with_color(R_EX_TOP, true, 255, 0, 0);
+  return true;
+}
+
+bool dynamic_macro_record_end_user(int8_t direction) {
+  (void)direction;
+  rgb_matrix_blink_led(R_EX_TOP, false);
+  return true;
+}
+
+bool dynamic_macro_play_user(int8_t direction) {
+  (void)direction;
+  dynamic_macro_playback_feedback = false;
+  rgb_matrix_blink_led(L_EX_TOP, false);
+  return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -291,6 +320,14 @@ void matrix_scan_user(void) {
     }
 
     // keep any existing code here
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (dynamic_macro_playback_feedback) {
+        // Keep RGB Matrix updates running while dynamic macro playback blocks the main loop.
+        rgb_matrix_blink_scan();
+        rgb_matrix_task();
+    }
 }
 
 char chordal_hold_handedness(keypos_t key) {
