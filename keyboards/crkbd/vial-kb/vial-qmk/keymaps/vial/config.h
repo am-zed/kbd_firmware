@@ -344,7 +344,7 @@
 // Dynamic macro buffer size (total keypresses for both macros)
 // Default: 128 keypresses shared between Macro 1 and Macro 2
 // Increase if you need longer macros (consumes RAM)
-// #define DYNAMIC_MACRO_SIZE 256
+#define DYNAMIC_MACRO_SIZE 256
 
 // Delay between each keypress during macro playback (milliseconds)
 // Default: None (0ms = immediate, back-to-back keypresses)
