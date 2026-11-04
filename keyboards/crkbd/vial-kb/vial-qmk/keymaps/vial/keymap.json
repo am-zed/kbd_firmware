@@ -12,6 +12,7 @@
     "getreuer/palettefx",
     "getreuer/sentence_case",
     "drashna/keyboard_lock",
-    "getreuer/lumino"
+    "getreuer/lumino",
+    "srwi/keypeek_layer_notify"
   ]
 }
