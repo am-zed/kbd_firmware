@@ -357,7 +357,7 @@
 
 // Optional: Disable nested macros (call one macro from another)
 // Saves a small amount of code space
-// #define DYNAMIC_MACRO_NO_NESTING
+#define DYNAMIC_MACRO_NO_NESTING
 
 // ==================== VIAL DYNAMIC FEATURE MEMORY ALLOCATION
 // ====================
@@ -656,3 +656,5 @@
 #define LUMINO_TRANSITION       500     // = 500 ms.
 // Lighting color set when `QK_BOOT` is pressed.
 #define LUMINO_BOOT_COLOR       RGB_RED
+
+#define SECURE_IDLE_TIMEOUT 60000

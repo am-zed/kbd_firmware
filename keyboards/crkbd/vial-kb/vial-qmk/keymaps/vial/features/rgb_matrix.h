@@ -35,7 +35,7 @@ static inline void set_led_color_if_in_range(uint8_t led_num, uint8_t led_min, u
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Caps Lock indicator - LED 22 (L_EX_BOT) turns white when active
     if (host_keyboard_led_state().caps_lock) {
-        set_led_color_if_in_range(L_EX_BOT, led_min, led_max, RGB_WHITE);
+        SET_LED_RGB(L_EX_BOT, led_min, led_max, RGB_WHITE);
     }
 
     // Layer-specific LED indicators
@@ -45,28 +45,28 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
 
         case 1: // Navigation Layer / LED 44 (R_EX_TOP)
-            set_led_color_if_in_range(R_EX_TOP, led_min, led_max, RGB_CYAN);
+            SET_LED_RGB(R_EX_TOP, led_min, led_max, RGB_CYAN);
             break;
 
         case 2: // Function/RGB Layer / LED 21 (L_EX_TOP)
-            set_led_color_if_in_range(L_EX_TOP, led_min, led_max, RGB_MAGENTA);
+            SET_LED_RGB(L_EX_TOP, led_min, led_max, RGB_MAGENTA);
             break;
 
         case 3: { // Symbols Layer / LEDs 21 (L_EX_TOP) and 44 (R_EX_TOP)
             const uint8_t leds[] = {L_EX_TOP, R_EX_TOP};
             for (uint8_t i = 0; i < ARRAY_SIZE(leds); i++) {
-                set_led_color_if_in_range(leds[i], led_min, led_max, RGB_ORANGE);
+                SET_LED_RGB(leds[i], led_min, led_max, RGB_ORANGE);
             }
             break;
         }
 
         case 4: // Mouse Layer / LED 44 (R_EX_TOP)
-            set_led_color_if_in_range(R_EX_TOP, led_min, led_max, RGB_CHARTREUSE);
+            SET_LED_RGB(R_EX_TOP, led_min, led_max, RGB_CHARTREUSE);
             break;
 
         case 5: { // Macros Layer / LED 45 (R_EX_BOT) + macro key highlights
             // Primary indicator
-            set_led_color_if_in_range(R_EX_BOT, led_min, led_max, RGB_PINK);
+            SET_LED_RGB(R_EX_BOT, led_min, led_max, RGB_PINK);
 
             // Additional macro keys highlighted in red
             const uint8_t macro_leds[] = {
@@ -76,17 +76,17 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 R_EX_TOP                                       // Right extra top
             };
             for (uint8_t i = 0; i < ARRAY_SIZE(macro_leds); i++) {
-                set_led_color_if_in_range(macro_leds[i], led_min, led_max, RGB_RED);
+                SET_LED_RGB(macro_leds[i], led_min, led_max, RGB_RED);
             }
             break;
         }
 
         case 6: // ErgoArabic Layer / LED 45 (R_EX_BOT)
-            set_led_color_if_in_range(R_EX_BOT, led_min, led_max, RGB_PINK);
+            SET_LED_RGB(R_EX_BOT, led_min, led_max, RGB_PINK);
             break;
 
         case 7: // RGB Layer / LED 22 (L_EX_BOT)
-            set_led_color_if_in_range(L_EX_BOT, led_min, led_max, RGB_BLUE);
+            SET_LED_RGB(L_EX_BOT, led_min, led_max, RGB_BLUE);
             break;
 
         default:

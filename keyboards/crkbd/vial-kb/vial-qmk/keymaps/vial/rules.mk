@@ -2,7 +2,7 @@ VIA_ENABLE         = yes
 VIAL_ENABLE        = yes
 VIALRGB_ENABLE     = yes
 ENCODER_MAP_ENABLE = no
-#SECURE_ENABLE      = yes
+SECURE_ENABLE      = yes
 
 # disable unused features
 #AUDIO_ENABLE           = no
