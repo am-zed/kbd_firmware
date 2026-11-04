@@ -8,6 +8,49 @@
 #include "quantum.h"
 #include "corne42_leds.h"
 
+#define RGB_MATRIX_BLINK_INTERVAL_MS 500
+
+static uint8_t blink_led_index;
+static uint8_t blink_led_red = 255;
+static uint8_t blink_led_green = 255;
+static uint8_t blink_led_blue = 255;
+static uint32_t blink_led_timer;
+static bool blink_led_enabled;
+static bool blink_led_visible;
+
+// toggle_state starts/restarts blinking when true and stops this LED when false.
+static inline void rgb_matrix_blink_led_set(uint8_t led_num, bool toggle_state, uint8_t r, uint8_t g, uint8_t b) {
+    if (!toggle_state) {
+        if (blink_led_enabled && blink_led_index == led_num) {
+            blink_led_enabled = false;
+        }
+        return;
+    }
+
+    blink_led_index = led_num;
+    blink_led_red = r;
+    blink_led_green = g;
+    blink_led_blue = b;
+    blink_led_enabled = true;
+    blink_led_visible = true;
+    blink_led_timer = timer_read32();
+}
+
+static inline void rgb_matrix_blink_led(uint8_t led_num, bool toggle_state) {
+    rgb_matrix_blink_led_set(led_num, toggle_state, 255, 255, 255);
+}
+
+static inline void rgb_matrix_blink_led_with_color(uint8_t led_num, bool toggle_state, uint8_t r, uint8_t g, uint8_t b) {
+    rgb_matrix_blink_led_set(led_num, toggle_state, r, g, b);
+}
+
+static inline void rgb_matrix_blink_scan(void) {
+    if (blink_led_enabled && timer_elapsed32(blink_led_timer) >= RGB_MATRIX_BLINK_INTERVAL_MS) {
+        blink_led_visible = !blink_led_visible;
+        blink_led_timer = timer_read32();
+    }
+}
+
 /**
  * @brief Set color for a specific LED if it's within the current range
  * @param led_num Target LED number
@@ -92,6 +135,14 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         default:
             // Unknown layer - use default RGB effects
             break;
+    }
+
+    if (blink_led_enabled && led_min <= blink_led_index && blink_led_index < led_max) {
+        if (blink_led_visible) {
+            rgb_matrix_set_color(blink_led_index, blink_led_red, blink_led_green, blink_led_blue);
+        } else {
+            rgb_matrix_set_color(blink_led_index, 0, 0, 0);
+        }
     }
 
     return false; // Allow other RGB effects to run

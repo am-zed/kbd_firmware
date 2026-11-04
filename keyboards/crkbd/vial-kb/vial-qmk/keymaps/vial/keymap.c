@@ -276,6 +276,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
+    rgb_matrix_blink_scan();
+
     if (jiggle_enabled && timer_elapsed(jiggle_timer) >= jiggle_interval) {
         switch (jiggle_step++ & 3) {
             case 0: tap_code16(KC_MS_UP);    break;
