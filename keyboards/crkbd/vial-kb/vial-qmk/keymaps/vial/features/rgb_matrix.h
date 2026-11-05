@@ -10,6 +10,7 @@
 
 #define RGB_MATRIX_BLINK_INTERVAL_MS 500
 
+static uint16_t blink_led_interval_ms = RGB_MATRIX_BLINK_INTERVAL_MS;
 static uint8_t blink_led_index;
 static uint8_t blink_led_red = 255;
 static uint8_t blink_led_green = 255;
@@ -19,7 +20,7 @@ static bool blink_led_enabled;
 static bool blink_led_visible;
 
 // toggle_state starts/restarts blinking when true and stops this LED when false.
-static inline void rgb_matrix_blink_led_set(uint8_t led_num, bool toggle_state, uint8_t r, uint8_t g, uint8_t b) {
+static inline void rgb_matrix_blink_led_set_interval(uint8_t led_num, bool toggle_state, uint8_t r, uint8_t g, uint8_t b, uint16_t interval_ms) {
     if (!toggle_state) {
         if (blink_led_enabled && blink_led_index == led_num) {
             blink_led_enabled = false;
@@ -31,9 +32,14 @@ static inline void rgb_matrix_blink_led_set(uint8_t led_num, bool toggle_state, 
     blink_led_red = r;
     blink_led_green = g;
     blink_led_blue = b;
+    blink_led_interval_ms = interval_ms;
     blink_led_enabled = true;
     blink_led_visible = true;
     blink_led_timer = timer_read32();
+}
+
+static inline void rgb_matrix_blink_led_set(uint8_t led_num, bool toggle_state, uint8_t r, uint8_t g, uint8_t b) {
+    rgb_matrix_blink_led_set_interval(led_num, toggle_state, r, g, b, RGB_MATRIX_BLINK_INTERVAL_MS);
 }
 
 static inline void rgb_matrix_blink_led(uint8_t led_num, bool toggle_state) {
@@ -45,7 +51,7 @@ static inline void rgb_matrix_blink_led_with_color(uint8_t led_num, bool toggle_
 }
 
 static inline void rgb_matrix_blink_scan(void) {
-    if (blink_led_enabled && timer_elapsed32(blink_led_timer) >= RGB_MATRIX_BLINK_INTERVAL_MS) {
+    if (blink_led_enabled && timer_elapsed32(blink_led_timer) >= blink_led_interval_ms) {
         blink_led_visible = !blink_led_visible;
         blink_led_timer = timer_read32();
     }

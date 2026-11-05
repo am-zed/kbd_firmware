@@ -62,7 +62,7 @@ bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Playback is synchronous, so start feedback before QMK enters its playback loop.
   if (!record->event.pressed && (keycode == QK_DYNAMIC_MACRO_PLAY_1 || keycode == QK_DYNAMIC_MACRO_PLAY_2)) {
     dynamic_macro_playback_feedback = true;
-    rgb_matrix_blink_led_with_color(L_EX_TOP, true, 0, 255, 0);
+    rgb_matrix_blink_led_set_interval(L_EX_TOP, true, 0, 255, 0, 100);
   }
   return true;
 }
