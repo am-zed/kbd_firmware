@@ -213,13 +213,13 @@ void leader_end_user(void) {
 
     // Leader + 0 = Go to beginning of line (Home)
     else if (leader_sequence_one_key(KC_0)) {
-        tap_code(KC_HOME);
+        tap_code16(KC_HOME);
         leader_sequence_matched = true;
     }
 
     // Leader + $ = Go to end of line (End)
     else if (leader_sequence_one_key(KC_DLR)) {
-        tap_code(KC_END);
+        tap_code16(KC_END);
         leader_sequence_matched = true;
     }
 
@@ -285,7 +285,7 @@ void leader_end_user(void) {
         SEND_STRING(SS_TAP(X_HOME));           // Go to beginning of line
         SEND_STRING(SS_LSFT(SS_TAP(X_END)));   // Select to end of line
         wait_ms(50);
-        tap_code(KC_BSPC);                     // Delete selected line
+        tap_code16(KC_BSPC);                     // Delete selected line
         leader_sequence_matched = true;
     }
 
@@ -311,7 +311,7 @@ void leader_end_user(void) {
         #endif
 
         wait_ms(50);
-        tap_code(KC_RIGHT);                    // Deselect the text
+        tap_code16(KC_RIGHT);                    // Deselect the text
         leader_sequence_matched = true;
     }
 
@@ -344,7 +344,7 @@ void leader_end_user(void) {
                 wait_ms(30);
                 SEND_STRING(SS_LSFT(SS_LALT(SS_TAP(X_RGHT)))); // Extend to word end
                 wait_ms(50);
-                tap_code(KC_BSPC); // Delete selection
+                tap_code16(KC_BSPC); // Delete selection
                 break;
             default:
                 // Windows/Linux: Select word (Ctrl+Shift+Left/Right) then delete
@@ -352,7 +352,7 @@ void leader_end_user(void) {
                 wait_ms(30);
                 SEND_STRING(SS_LSFT(SS_LSFT(SS_LCTL(SS_TAP(X_RGHT))))); // Select to word end
                 wait_ms(50);
-                tap_code(KC_BSPC); // Delete selection
+                tap_code16(KC_BSPC); // Delete selection
                 break;
         }
         #else
@@ -361,14 +361,14 @@ void leader_end_user(void) {
         wait_ms(30);
         SEND_STRING(SS_LSFT(SS_LSFT(SS_LCTL(SS_TAP(X_RGHT))))); // Select to word end
         wait_ms(50);
-        tap_code(KC_BSPC); // Delete selection
+        tap_code16(KC_BSPC); // Delete selection
         #endif
         leader_sequence_matched = true;
     }
 
     // Leader + s + s = Screenshot (full screen)
     else if (leader_sequence_two_keys(KC_S, KC_S)) {
-        tap_code(KC_PSCR); // Print Screen
+        tap_code16(KC_PSCR); // Print Screen
         leader_sequence_matched = true;
     }
 
@@ -385,7 +385,7 @@ void leader_end_user(void) {
                 // macOS: Cmd+Shift+4 then Space (captures window)
                 SEND_STRING(SS_LGUI(SS_LSFT("4")));
                 wait_ms(200); // Wait for crosshair to appear
-                tap_code(KC_SPC); // Switch to window capture mode
+                tap_code16(KC_SPC); // Switch to window capture mode
                 break;
             case OS_LINUX:
                 // Linux: Ctrl+Print Screen (common in many DEs)
@@ -394,7 +394,7 @@ void leader_end_user(void) {
                 break;
             default:
                 // Fallback: Print Screen (may capture full screen)
-                tap_code(KC_PSCR);
+                tap_code16(KC_PSCR);
                 break;
         }
         #else
@@ -408,7 +408,7 @@ void leader_end_user(void) {
     else if (leader_sequence_two_keys(KC_G, KC_D)) {
         SEND_STRING(SS_LCTL("a"));  // Ctrl+A (Select All)
         wait_ms(50);
-        tap_code(KC_BSPC);          // Backspace (Delete)
+        tap_code16(KC_BSPC);          // Backspace (Delete)
         leader_sequence_matched = true;
     }
 
@@ -419,7 +419,7 @@ void leader_end_user(void) {
         wait_ms(50);                           // Small delay for selection to complete
         SEND_STRING(SS_LCTL("c"));             // Copy
         wait_ms(50);
-        tap_code(KC_END);                     // Deselect
+        tap_code16(KC_END);                     // Deselect
         leader_sequence_matched = true;
     }
 
@@ -430,9 +430,9 @@ void leader_end_user(void) {
         wait_ms(50);
         SEND_STRING(SS_LCTL("c"));
         wait_ms(50);
-        tap_code(KC_RIGHT); // Deselect
+        tap_code16(KC_RIGHT); // Deselect
         SEND_STRING(SS_TAP(X_END));
-        tap_code(KC_ENTER); // New line
+        tap_code16(KC_ENTER); // New line
         SEND_STRING(SS_LCTL("v")); // Paste duplicate
         leader_sequence_matched = true;
     }

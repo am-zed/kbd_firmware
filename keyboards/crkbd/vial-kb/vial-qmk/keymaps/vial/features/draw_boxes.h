@@ -24,14 +24,14 @@ static void send_box_style(uint8_t w, box_style_t s) {
     register_unicode(s.tl);
     send_repeat_unicode(s.h, w);
     register_unicode(s.tr);
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     register_unicode(s.v);
     for (uint8_t i = 0; i < w; i++) {
-        tap_code(KC_SPC);
+        tap_code16(KC_SPC);
     }
     register_unicode(s.v);
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     register_unicode(s.bl);
     send_repeat_unicode(s.h, w);
@@ -91,15 +91,15 @@ static void send_table(void) {
     register_unicode(0x252C);              // ┬
     send_repeat_unicode(0x2500, w);        // ─
     register_unicode(0x2510);              // ┐
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     // Header row
     register_unicode(0x2502);              // │
-    for (uint8_t i = 0; i < w; i++) tap_code(KC_SPC);
+    for (uint8_t i = 0; i < w; i++) tap_code16(KC_SPC);
     register_unicode(0x2502);              // │
-    for (uint8_t i = 0; i < w; i++) tap_code(KC_SPC);
+    for (uint8_t i = 0; i < w; i++) tap_code16(KC_SPC);
     register_unicode(0x2502);              // │
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     // Header separator: double horizontal
     register_unicode(0x255E);              // ╞
@@ -107,15 +107,15 @@ static void send_table(void) {
     register_unicode(0x256A);              // ╪
     send_repeat_unicode(0x2550, w);        // ═
     register_unicode(0x2561);              // ╡
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     // Row 2
     register_unicode(0x2502);              // │
-    for (uint8_t i = 0; i < w; i++) tap_code(KC_SPC);
+    for (uint8_t i = 0; i < w; i++) tap_code16(KC_SPC);
     register_unicode(0x2502);              // │
-    for (uint8_t i = 0; i < w; i++) tap_code(KC_SPC);
+    for (uint8_t i = 0; i < w; i++) tap_code16(KC_SPC);
     register_unicode(0x2502);              // │
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     // Separator
     register_unicode(0x251C);              // ├
@@ -123,15 +123,15 @@ static void send_table(void) {
     register_unicode(0x253C);              // ┼
     send_repeat_unicode(0x2500, w);        // ─
     register_unicode(0x2524);              // ┤
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     // Row 3
     register_unicode(0x2502);              // │
-    for (uint8_t i = 0; i < w; i++) tap_code(KC_SPC);
+    for (uint8_t i = 0; i < w; i++) tap_code16(KC_SPC);
     register_unicode(0x2502);              // │
-    for (uint8_t i = 0; i < w; i++) tap_code(KC_SPC);
+    for (uint8_t i = 0; i < w; i++) tap_code16(KC_SPC);
     register_unicode(0x2502);              // │
-    tap_code(KC_ENT);
+    tap_code16(KC_ENT);
 
     // Bottom border
     register_unicode(0x2514);              // └
